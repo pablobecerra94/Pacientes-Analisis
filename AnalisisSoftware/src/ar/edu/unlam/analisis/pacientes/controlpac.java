@@ -108,6 +108,7 @@ public class controlpac {
 						op2 = LeerEntero();
 						verificarOpcionInforme(op2);
 
+						String archivo = "C:\\datomed.txt";
 						switch (op2) {
 						case 1:
 							try {
@@ -115,8 +116,7 @@ public class controlpac {
 								ps("Digite el codigo del medico que desea consultar: ");
 								codtem = LeerCadena();
 
-								DataInputStream datomed = null;
-								datomed = new DataInputStream(new FileInputStream("C:\\datomed.txt"));
+								DataInputStream datomed = leerArchivo(archivo);
 
 								sw = 1;
 								while (sw != 0) {
@@ -138,72 +138,7 @@ public class controlpac {
 																// el codigo
 																// digitado
 									{
-										ps("::: El medico " + nomm + " atiende a los siguientes pacientes: " + "\n");
-										DataInputStream situpac = null;
-										situpac = new DataInputStream(new FileInputStream("C:\\situpac.txt"));
-
-										sw = 1;
-										while (sw != 0) {
-											try {
-												codp = situpac.readUTF();
-												codme = situpac.readUTF();
-												enfp = situpac.readUTF();
-
-												if (codme.equals(codtem)) // compara
-																			// el
-																			// codigo
-																			// medico
-																			// de
-																			// la
-																			// tabla
-																			// "datomed"
-																			// con
-																			// el
-																			// de
-																			// la
-																			// tabla
-																			// "situpac"
-												{
-													DataInputStream datopac = null;
-													datopac = new DataInputStream(
-															new FileInputStream("C:\\datopac.txt"));
-
-													sw1 = 1;
-													while (sw1 != 0) {
-														try {
-															codpa = datopac.readUTF();
-															nompa = datopac.readUTF();
-
-															if (codpa.equals(codp)) // compara
-																					// el
-																					// codigo
-																					// del
-																					// paciente
-																					// de
-																					// la
-																					// tabla
-																					// "situpac"
-																					// con
-																					// el
-																					// codigo
-																					// del
-																					// paciente
-																					// de
-																					// la
-																					// tabla
-																					// "datopac"
-															{
-																ps("::: Paciente: " + nompa + "\n");
-															}
-														} catch (EOFException e) {
-															sw1 = 0;
-														}
-													}
-												}
-											} catch (EOFException e) {
-												sw = 0;
-											}
-										}
+										mostrarPacientesAtendidosPorMedico(nomm, codtem);
 									}
 								}
 
@@ -217,8 +152,7 @@ public class controlpac {
 							ps("Digite el codigo del medico que desea consultar: ");
 							codtem = LeerCadena();
 
-							DataInputStream datomed = null;
-							datomed = new DataInputStream(new FileInputStream("C:\\datomed.txt"));
+							DataInputStream datomed = leerArchivo(archivo);
 
 							sw1 = 1;
 							while (sw1 != 0) {
@@ -236,44 +170,7 @@ public class controlpac {
 																// tabla
 																// "datomed"
 									{
-										ps("El medico " + nomm + " trata las siguientes enfermedades:" + "\n");
-
-										DataInputStream situpac = null;
-										situpac = new DataInputStream(new FileInputStream("C:\\situpac.txt"));
-
-										sw = 1;
-										while (sw != 0) {
-											try {
-												codp = situpac.readUTF();
-												codme = situpac.readUTF();
-												enfp = situpac.readUTF();
-
-												if (codtem.equals(codme)) // compara
-																			// el
-																			// codigo
-																			// del
-																			// medico
-																			// de
-																			// la
-																			// tabla
-																			// "datomed"
-																			// con
-																			// el
-																			// codigo
-																			// del
-																			// medico
-																			// en
-																			// la
-																			// tabla
-																			// "situpac"
-
-												{
-													ps(">>>> " + enfp + "\n");
-												}
-											} catch (EOFException e) {
-												sw = 0;
-											}
-										}
+										mostrarEspecialidadesMedico(nomm, codtem);
 									}
 								} catch (EOFException e) {
 									sw1 = 0;
@@ -288,6 +185,134 @@ public class controlpac {
 			}
 		} while (op1 != 3);
 
+	}
+
+	private static void mostrarEspecialidadesMedico(String nomm, String codtem)
+			throws FileNotFoundException, IOException {
+		int sw;
+		String codp;
+		String codme;
+		String enfp;
+		ps("El medico " + nomm + " trata las siguientes enfermedades:" + "\n");
+
+		DataInputStream situpac = null;
+		situpac = new DataInputStream(new FileInputStream("C:\\situpac.txt"));
+
+		sw = 1;
+		while (sw != 0) {
+			try {
+				codp = situpac.readUTF();
+				codme = situpac.readUTF();
+				enfp = situpac.readUTF();
+
+				if (codtem.equals(codme)) // compara
+											// el
+											// codigo
+											// del
+											// medico
+											// de
+											// la
+											// tabla
+											// "datomed"
+											// con
+											// el
+											// codigo
+											// del
+											// medico
+											// en
+											// la
+											// tabla
+											// "situpac"
+
+				{
+					ps(">>>> " + enfp + "\n");
+				}
+			} catch (EOFException e) {
+				sw = 0;
+			}
+		}
+	}
+
+	private static void mostrarPacientesAtendidosPorMedico(String nomm, String codtem)
+			throws FileNotFoundException, IOException {
+		int sw;
+		int sw1;
+		String codp;
+		String codpa;
+		String nompa;
+		String codme;
+		String enfp;
+		ps("::: El medico " + nomm + " atiende a los siguientes pacientes: " + "\n");
+
+		DataInputStream situpac = leerArchivo("C:\\situpac.txt");
+
+		sw = 1;
+		while (sw != 0) {
+			try {
+				codp = situpac.readUTF();
+				codme = situpac.readUTF();
+				enfp = situpac.readUTF();
+
+				if (codme.equals(codtem)) // compara
+											// el
+											// codigo
+											// medico
+											// de
+											// la
+											// tabla
+											// "datomed"
+											// con
+											// el
+											// de
+											// la
+											// tabla
+											// "situpac"
+				{
+
+					DataInputStream datopac = leerArchivo("C:\\datopac.txt");
+
+					sw1 = 1;
+					while (sw1 != 0) {
+						try {
+							codpa = datopac.readUTF();
+							nompa = datopac.readUTF();
+
+							if (codpa.equals(codp)) // compara
+													// el
+													// codigo
+													// del
+													// paciente
+													// de
+													// la
+													// tabla
+													// "situpac"
+													// con
+													// el
+													// codigo
+													// del
+													// paciente
+													// de
+													// la
+													// tabla
+													// "datopac"
+							{
+								ps("::: Paciente: " + nompa + "\n");
+							}
+						} catch (EOFException e) {
+							sw1 = 0;
+						}
+					}
+				}
+			} catch (EOFException e) {
+				sw = 0;
+			}
+		}
+	}
+
+	private static DataInputStream leerArchivo(String archivo) throws FileNotFoundException {
+		DataInputStream datomed = null;
+		datomed = new DataInputStream(new FileInputStream(archivo));
+		return datomed;
 	}
 
 	private static void verificarOpcionInforme(int op2) {
