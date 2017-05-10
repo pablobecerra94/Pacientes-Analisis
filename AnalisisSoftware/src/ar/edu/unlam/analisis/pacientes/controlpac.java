@@ -18,40 +18,39 @@ public class controlpac {
 	}
 
 	public static int LeerEntero() {
-		String línea = new String("");
+		String linea = new String("");
 		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-			línea = br.readLine();
+			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+			linea = bufferedReader.readLine();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		int ne = 0;
+		int numeroEntero = 0;
 		try {
-			ne = Integer.parseInt(línea);
+			numeroEntero = Integer.parseInt(linea);
 		} catch (Exception e) {
 		}
-		;
-		return (ne);
+		
+		return (numeroEntero);
 	}
 
 	public static String LeerCadena() {
-		String línea = new String("");
+		String linea = new String("");
 		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-			línea = br.readLine();
+			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+			linea = bufferedReader.readLine();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		double ne = 0;
-		return (línea);
+		return linea;
 	}
 
 	public static void main(String args[]) throws Exception {
-		String op = "";
+		String opcion = "";
 		int sw = 0, sw1 = 0;
-		int op1, op2, op3; // variables de selección usadas en los diferentes
+		int opcionMenuPrincipal, opcionMenuIngresoDePacientes, op3; // variables de selección usadas en los diferentes
 							// menús
-		String codpac, cp, nompac, codmed, cm, enfpac, nommed, espmed; // variables
+		String codigoPaciente, cp, nompac, codmed, cm, enfpac, nommed, espmed; // variables
 																		// usadas
 																		// en el
 																		// registro
@@ -67,25 +66,25 @@ public class controlpac {
 		String codtem; // variables auxiliares temporales
 
 		do {
-			op1 = 0;
+			opcionMenuPrincipal = 0;
 
 			verMenuPrincipal();
 			// ps("\n");
-			op1 = LeerEntero();
-			verificarOpcionValidaMenuPrincipal(op1);
+			opcionMenuPrincipal = LeerEntero();
+			verificarOpcionValidaMenuPrincipal(opcionMenuPrincipal);
 
-			if (op1 == 1) // seleción ingreso de pacientes
+			if (opcionMenuPrincipal == 1) // seleción ingreso de pacientes
 			{
 
 				do {
 
 					verMenuIngresoDePacientes();
 
-					op2 = LeerEntero();
+					opcionMenuIngresoDePacientes = LeerEntero();
 
-					verificarOpcionValidaIngresoDePacientes(op2);
+					verificarOpcionValidaIngresoDePacientes(opcionMenuIngresoDePacientes);
 
-					switch (op2) {
+					switch (opcionMenuIngresoDePacientes) {
 					case 1: // ingreso de datos, datos del paciente
 						ingresarDatosDelPaciente();
 
@@ -98,18 +97,18 @@ public class controlpac {
 					case 3:
 						ingresarDatosDelMedico();
 					}
-				} while (op2 != 4);
+				} while (opcionMenuIngresoDePacientes != 4);
 			} else {
-				if (op1 == 2) // seleción informes
+				if (opcionMenuPrincipal == 2) // seleción informes
 				{
 
 					do {
 						verMenuInformes();
-						op2 = LeerEntero();
-						verificarOpcionInforme(op2);
+						opcionMenuIngresoDePacientes = LeerEntero();
+						verificarOpcionInforme(opcionMenuIngresoDePacientes);
 
 						String archivo = "C:\\datomed.txt";
-						switch (op2) {
+						switch (opcionMenuIngresoDePacientes) {
 						case 1:
 							try {
 
@@ -179,11 +178,11 @@ public class controlpac {
 							break;
 						}
 
-					} while (op2 != 3);
+					} while (opcionMenuIngresoDePacientes != 3);
 
 				}
 			}
-		} while (op1 != 3);
+		} while (opcionMenuPrincipal != 3);
 
 	}
 
