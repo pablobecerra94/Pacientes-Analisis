@@ -1,6 +1,5 @@
 package ar.edu.unlam.analisis.pacientes;
 
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
@@ -8,191 +7,70 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import ar.edu.unlam.analisis.enums.ETipoInforme;
 
 public class controlpac {
+	
+	private static final String ARCHIVO_DATOS_MEDICO = "C:\\datomed.txt";
+	private static final String ARCHIVO_SITUACION_PACIENTE = "C:\\situpac.txt";
+	private static final String ARCHIVO_DATOS_PACIENTE = "C:\\datopac.txt";
+	
 
-	public static void ps(String x) {
-		System.out.print(x);
+	
+	@SuppressWarnings("unused")
+	public static Collection<String> getInformeMedico(String codmed, ETipoInforme tipoInforme) throws Exception{
+		Collection<String> colReturn = new ArrayList<String>();
+		String archivo = ARCHIVO_DATOS_MEDICO;
+		int sw;
+		String codm="",nomm = "",espm;
+			try {
+				DataInputStream datomed = leerArchivo(archivo);
 
-	}
+				sw = 1;
+				while (sw != 0) {
+					try {
+						codm = datomed.readUTF();
+						nomm = datomed.readUTF();
+						espm = datomed.readUTF();
 
-	public static int LeerEntero() {
-		String linea = new String("");
-		try {
-			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-			linea = bufferedReader.readLine();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		int numeroEntero = 0;
-		try {
-			numeroEntero = Integer.parseInt(linea);
-		} catch (Exception e) {
-		}
-		
-		return (numeroEntero);
-	}
-
-	public static String LeerCadena() {
-		String linea = new String("");
-		try {
-			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-			linea = bufferedReader.readLine();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return linea;
-	}
-
-	public static void main(String args[]) throws Exception {
-		String opcion = "";
-		int sw = 0, sw1 = 0;
-		int opcionMenuPrincipal, opcionMenuIngresoDePacientes, op3; // variables de selección usadas en los diferentes
-							// menús
-		String codigoPaciente, cp, nompac, codmed, cm, enfpac, nommed, espmed; // variables
-																		// usadas
-																		// en el
-																		// registro
-																		// de
-																		// datos
-		String codp = "", codpa = "", nomp = "", nompa = "", codm = "", codme = "", enfp = "", nomm = "", espm = ""; // variables
-																														// usadas
-																														// en
-																														// la
-																														// lectura
-																														// de
-																														// datos
-		String codtem; // variables auxiliares temporales
-
-		do {
-			opcionMenuPrincipal = 0;
-
-			verMenuPrincipal();
-			// ps("\n");
-			opcionMenuPrincipal = LeerEntero();
-			verificarOpcionValidaMenuPrincipal(opcionMenuPrincipal);
-
-			if (opcionMenuPrincipal == 1) // seleción ingreso de pacientes
-			{
-
-				do {
-
-					verMenuIngresoDePacientes();
-
-					opcionMenuIngresoDePacientes = LeerEntero();
-
-					verificarOpcionValidaIngresoDePacientes(opcionMenuIngresoDePacientes);
-
-					switch (opcionMenuIngresoDePacientes) {
-					case 1: // ingreso de datos, datos del paciente
-						ingresarDatosDelPaciente();
-
-						break;
-					// ingreso de datos, situacion del paciente
-					case 2:
-						codm = ingresarSituacionPaciente(codm);
-						break;
-
-					case 3:
-						ingresarDatosDelMedico();
+					} catch (EOFException e) {
+						sw = 0;
 					}
-				} while (opcionMenuIngresoDePacientes != 4);
-			} else {
-				if (opcionMenuPrincipal == 2) // seleción informes
-				{
 
-					do {
-						verMenuInformes();
-						opcionMenuIngresoDePacientes = LeerEntero();
-						verificarOpcionInforme(opcionMenuIngresoDePacientes);
-
-						String archivo = "C:\\datomed.txt";
-						switch (opcionMenuIngresoDePacientes) {
-						case 1:
-							try {
-
-								ps("Digite el codigo del medico que desea consultar: ");
-								codtem = LeerCadena();
-
-								DataInputStream datomed = leerArchivo(archivo);
-
-								sw = 1;
-								while (sw != 0) {
-									try {
-										codm = datomed.readUTF();
-										nomm = datomed.readUTF();
-										espm = datomed.readUTF();
-
-									} catch (EOFException e) {
-										sw = 0;
-									}
-
-									if (codm.equals(codtem)) // compara el
-																// codigo
-																// extraido de
-																// la
-																// tabla
-																// "datomed" con
-																// el codigo
-																// digitado
-									{
-										mostrarPacientesAtendidosPorMedico(nomm, codtem);
-									}
-								}
-
-							} catch (IOException ioe) {
-							}
-							;
-							break;
-
-						case 2:
-
-							ps("Digite el codigo del medico que desea consultar: ");
-							codtem = LeerCadena();
-
-							DataInputStream datomed = leerArchivo(archivo);
-
-							sw1 = 1;
-							while (sw1 != 0) {
-								try {
-									codm = datomed.readUTF();
-									nomm = datomed.readUTF();
-									espm = datomed.readUTF();
-
-									if (codm.equals(codtem)) // compara el
-																// codigo
-																// digitado
-																// con el codigo
-																// del medico de
-																// la
-																// tabla
-																// "datomed"
-									{
-										mostrarEspecialidadesMedico(nomm, codtem);
-									}
-								} catch (EOFException e) {
-									sw1 = 0;
-								}
-							}
-							break;
+					if (codm.equals(codmed)) // compara el
+												// codigo
+												// extraido de
+												// la
+												// tabla
+												// "datomed" con
+												// el codigo
+												// digitado
+					{
+						if(tipoInforme.equals(ETipoInforme.ESPECIALIDADES)){
+							colReturn = darEspecialidadesMedico(nomm, codmed);
 						}
-
-					} while (opcionMenuIngresoDePacientes != 3);
-
+						if(tipoInforme.equals(ETipoInforme.PACIENTES)){
+							colReturn = darPacientesAtendidosPorMedico(nomm, codmed);
+						}
+					}
 				}
-			}
-		} while (opcionMenuPrincipal != 3);
 
+			} catch (IOException ioe) {
+			}
+			return colReturn;
 	}
 
-	private static void mostrarEspecialidadesMedico(String nomm, String codtem)
+	@SuppressWarnings({ "unused", "resource" })
+	private static Collection<String> darEspecialidadesMedico(String nomm, String codtem)
 			throws FileNotFoundException, IOException {
+		Collection<String> colEspecialidades = new ArrayList<String>();
 		int sw;
 		String codp;
 		String codme;
 		String enfp;
-		ps("El medico " + nomm + " trata las siguientes enfermedades:" + "\n");
 
 		DataInputStream situpac = null;
 		situpac = new DataInputStream(new FileInputStream("C:\\situpac.txt"));
@@ -224,28 +102,26 @@ public class controlpac {
 											// "situpac"
 
 				{
-					ps(">>>> " + enfp + "\n");
+					colEspecialidades.add(enfp);
 				}
 			} catch (EOFException e) {
 				sw = 0;
 			}
 		}
+		return colEspecialidades;
 	}
-
-	private static void mostrarPacientesAtendidosPorMedico(String nomm, String codtem)
-			throws FileNotFoundException, IOException {
-		int sw;
-		int sw1;
+	
+	@SuppressWarnings("unused")
+	private static Collection<String> darPacientesAtendidosPorMedico(String nomm, String codtem)throws FileNotFoundException, IOException {
+		Collection<String> colPacientes = new ArrayList<String>();
+		DataInputStream situpac = leerArchivo("C:\\situpac.txt");
 		String codp;
 		String codpa;
 		String nompa;
 		String codme;
 		String enfp;
-		ps("::: El medico " + nomm + " atiende a los siguientes pacientes: " + "\n");
-
-		DataInputStream situpac = leerArchivo("C:\\situpac.txt");
-
-		sw = 1;
+		int sw=1;
+		int sw1;
 		while (sw != 0) {
 			try {
 				codp = situpac.readUTF();
@@ -295,7 +171,7 @@ public class controlpac {
 													// tabla
 													// "datopac"
 							{
-								ps("::: Paciente: " + nompa + "\n");
+								colPacientes.add(nompa);
 							}
 						} catch (EOFException e) {
 							sw1 = 0;
@@ -305,7 +181,9 @@ public class controlpac {
 			} catch (EOFException e) {
 				sw = 0;
 			}
+			
 		}
+		return colPacientes;
 	}
 
 	private static DataInputStream leerArchivo(String archivo) throws FileNotFoundException {
@@ -314,168 +192,47 @@ public class controlpac {
 		return datomed;
 	}
 
-	private static void verificarOpcionInforme(int op2) {
-		if (op2 < 1 || op2 > 3) {
-			ps("Seleccione una de las opciones del menu" + "\n");
-		}
-	}
-
-	private static void verMenuInformes() {
-		ps("   ..............................................." + "\n");
-		ps("   :-:  C O N T R O L  D E  P A C I E N T E S  :-:" + "\n");
-		ps("   ..............................................." + "\n");
-		ps("   :-:           - I N F O R M E S -           :-:" + "\n");
-		ps("   :-:.........................................:-:" + "\n");
-		ps("   :-: 1. Listado de pacientes por medico      :-:" + "\n");
-		ps("   :-: 2. Enfermedades que atiende cada medico :-:" + "\n");
-		ps("   :-: 3. Anterior                             :-:" + "\n");
-		ps("   ..............................................." + "\n");
-		ps("   ....Elija la opcion deseada: ");
-	}
-
-	private static void ingresarDatosDelMedico() throws FileNotFoundException, IOException {
-		String op;
-		String codmed;
-		String nommed;
-		String espmed;
+	public static void nuevoMedico(String codmed, String nombre,String especializacion) throws FileNotFoundException{
 		DataOutputStream datomed = null;
 		datomed = new DataOutputStream(new FileOutputStream("C:\\datomed.txt"));
 		try {
-			do {
+			datomed.writeUTF(codmed);
+				datomed.writeUTF(nombre);
+				datomed.writeUTF(especializacion);
+				datomed.close();
 
-				ps("   ....................................................." + "\n");
-				ps("   :-:      - D A T O S   D E L   M E D I C O -      :-:" + "\n");
-				ps("   :-:...............................................:-:" + "\n");
-
-				ps("Digite el codigo del medico: ");
-				codmed = LeerCadena();
-				datomed.writeUTF(codmed);
-
-				ps("Digite el nombre del medico: ");
-				nommed = LeerCadena();
-				datomed.writeUTF(nommed);
-
-				ps("Digite la especializacion del medico: ");
-				espmed = LeerCadena();
-				datomed.writeUTF(espmed);
-
-				ps("Desea ingresar otro medico? S/N");
-				ps("\n");
-
-				op = LeerCadena();
-
-			} while (op.equals("S") || op.equals("s"));
 		} catch (IOException ioe) {
 		}
 		;
-		datomed.close();
 	}
-
-	private static String ingresarSituacionPaciente(String codm) throws FileNotFoundException {
-		String op;
-		String enfpac;
-		String codp;
+	
+	public static void nuevaSituacionPaciente(String codpac, String codmed,String diagnostico) throws FileNotFoundException{
 		DataOutputStream situpac = null;
 		situpac = new DataOutputStream(new FileOutputStream("C:\\situpac.txt"));
-
 		try {
-			do {
-
-				ps("   ....................................................." + "\n");
-				ps("   :-: - S I T U A C I O N  D E L  P A C I E N T E - :-:" + "\n");
-				ps("   :-:...............................................:-:" + "\n");
-
-				ps("Digite el codigo del paciente: ");
-				codp = LeerCadena();
-				situpac.writeUTF(codp);
-				ps("Digite el codigo del medico: ");
-				codm = LeerCadena();
-				situpac.writeUTF(codm);
-				ps("Digite el diagnostico del medico: ");
-				enfpac = LeerCadena();
-				situpac.writeUTF(enfpac);
-
-				ps("Desea ingresar otro registro al historial? S/N");
-				ps("\n");
-				op = LeerCadena();
-
-			} while (op.equals("S") || op.equals("s"));
+			situpac.writeUTF(codpac);
+			situpac.writeUTF(codmed);
+			situpac.writeUTF(diagnostico);
 			situpac.close();
+
 		} catch (IOException ioe) {
 		}
 		;
-		return codm;
 	}
-
-	private static void ingresarDatosDelPaciente() throws FileNotFoundException {
-		String op;
-		String codpac;
-		String nompac;
+	
+	public static void nuevoPaciente(String codpac, String nompac) throws FileNotFoundException{
 		DataOutputStream datopac = null;
 		datopac = new DataOutputStream(new FileOutputStream("C:\\datopac.txt"));
 		try {
-
-			do {
-
-				ps("   ..............................................." + "\n");
-				ps("   :-:  - D A T O S  D E L  P A C I E N T E -  :-:" + "\n");
-				ps("   :-:.........................................:-:" + "\n");
-
-				ps("Digite el codigo del paciente: ");
-				codpac = LeerCadena();
 				datopac.writeUTF(codpac);
-				ps("Digite el nombre del paciente: ");
-				nompac = LeerCadena();
-
 				datopac.writeUTF(nompac);
-
-				ps("Desea ingresar otro paciente? S/N" + "\n");
-
-				op = LeerCadena();
-
-			} while (op.equals("S") || op.equals("s"));
-			datopac.close();
+				datopac.close();
 
 		} catch (IOException ioe) {
 		}
 		;
 	}
+	
 
-	private static void verificarOpcionValidaIngresoDePacientes(int op2) {
-		if (op2 < 1 || op2 > 4) {
-			ps("Debe digitar una opcion del menu" + "\n");
-		}
-	}
-
-	private static void verMenuIngresoDePacientes() {
-		ps("   ..............................................." + "\n");
-		ps("   :-: -I N G R E S O  D E  P A C I E N T E S- :-:" + "\n");
-		ps("   :-:.........................................:-:" + "\n");
-		ps("   :-: 1.  Datos del paciente                  :-:" + "\n");
-		ps("   :-: 2.  Situacion del paciente              :-:" + "\n");
-		ps("   :-: 3.  Datos del medico                    :-:" + "\n");
-		ps("   :-: 4.  Anterior                            :-:" + "\n");
-		ps("   ..............................................." + "\n");
-		ps("   ....Elija la opcion deseada: ");
-	}
-
-	private static void verificarOpcionValidaMenuPrincipal(int op1) {
-		if (op1 < 1 || op1 > 3) {
-			ps("Debe digitar una opcion del menu" + "\n");
-		}
-	}
-
-	private static void verMenuPrincipal() {
-		ps("   .............................................." + "\n");
-		ps("   :-:        C E N T R O  M E D I C O        :-:" + "\n");
-		ps("   :-:   >>>> L O S  L A U R E L E S <<<<     :-:" + "\n");
-		ps("   :-:  C O N T R O L  D E  P A C I E N T E S :-:" + "\n");
-		ps("   :-:........................................:-:" + "\n");
-		ps("   :-: 1.  Ingreso de datos                   :-:" + "\n");
-		ps("   :-: 2.  Informes                           :-:" + "\n");
-		ps("   :-: 3.  Salir                              :-:" + "\n");
-		ps("   .............................................." + "\n");
-		ps("   ....Elija la opcion deseada: ");
-	}
 
 }
