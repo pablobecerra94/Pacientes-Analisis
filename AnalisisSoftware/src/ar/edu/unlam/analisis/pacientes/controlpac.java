@@ -13,12 +13,13 @@ import java.util.Collection;
 import ar.edu.unlam.analisis.enums.ETipoInforme;
 
 public class controlpac {
-	
+	/*
+	private static final String ARCHIVO_DATOS_MEDICO = "/Users/fpezzola/Desktop/datomed.txt";
+	private static final String ARCHIVO_SITUACION_PACIENTE = "/Users/fpezzola/Desktop/situpac.txt";
+	private static final String ARCHIVO_DATOS_PACIENTE = "/Users/fpezzola/Desktop/datopac.txt";*/
 	private static final String ARCHIVO_DATOS_MEDICO = "C:\\datomed.txt";
 	private static final String ARCHIVO_SITUACION_PACIENTE = "C:\\situpac.txt";
 	private static final String ARCHIVO_DATOS_PACIENTE = "C:\\datopac.txt";
-	
-
 	
 	@SuppressWarnings("unused")
 	public static Collection<String> getInformeMedico(String codmed, ETipoInforme tipoInforme) throws Exception{
@@ -30,6 +31,7 @@ public class controlpac {
 				DataInputStream datomed = leerArchivo(archivo);
 
 				sw = 1;
+				
 				while (sw != 0) {
 					try {
 						codm = datomed.readUTF();
@@ -73,7 +75,7 @@ public class controlpac {
 		String enfp;
 
 		DataInputStream situpac = null;
-		situpac = new DataInputStream(new FileInputStream("C:\\situpac.txt"));
+		situpac = new DataInputStream(new FileInputStream(ARCHIVO_SITUACION_PACIENTE));
 
 		sw = 1;
 		while (sw != 0) {
@@ -114,7 +116,7 @@ public class controlpac {
 	@SuppressWarnings("unused")
 	private static Collection<String> darPacientesAtendidosPorMedico(String nomm, String codtem)throws FileNotFoundException, IOException {
 		Collection<String> colPacientes = new ArrayList<String>();
-		DataInputStream situpac = leerArchivo("C:\\situpac.txt");
+		DataInputStream situpac = leerArchivo(ARCHIVO_SITUACION_PACIENTE);
 		String codp;
 		String codpa;
 		String nompa;
@@ -144,7 +146,7 @@ public class controlpac {
 											// "situpac"
 				{
 
-					DataInputStream datopac = leerArchivo("C:\\datopac.txt");
+					DataInputStream datopac = leerArchivo(ARCHIVO_DATOS_PACIENTE);
 
 					sw1 = 1;
 					while (sw1 != 0) {
@@ -194,7 +196,7 @@ public class controlpac {
 
 	public static void nuevoMedico(String codmed, String nombre,String especializacion) throws FileNotFoundException{
 		DataOutputStream datomed = null;
-		datomed = new DataOutputStream(new FileOutputStream("C:\\datomed.txt"));
+		datomed = new DataOutputStream(new FileOutputStream(ARCHIVO_DATOS_MEDICO));
 		try {
 			datomed.writeUTF(codmed);
 				datomed.writeUTF(nombre);
@@ -208,7 +210,7 @@ public class controlpac {
 	
 	public static void nuevaSituacionPaciente(String codpac, String codmed,String diagnostico) throws FileNotFoundException{
 		DataOutputStream situpac = null;
-		situpac = new DataOutputStream(new FileOutputStream("C:\\situpac.txt"));
+		situpac = new DataOutputStream(new FileOutputStream(ARCHIVO_SITUACION_PACIENTE));
 		try {
 			situpac.writeUTF(codpac);
 			situpac.writeUTF(codmed);
@@ -222,7 +224,7 @@ public class controlpac {
 	
 	public static void nuevoPaciente(String codpac, String nompac) throws FileNotFoundException{
 		DataOutputStream datopac = null;
-		datopac = new DataOutputStream(new FileOutputStream("C:\\datopac.txt"));
+		datopac = new DataOutputStream(new FileOutputStream(ARCHIVO_DATOS_PACIENTE));
 		try {
 				datopac.writeUTF(codpac);
 				datopac.writeUTF(nompac);
