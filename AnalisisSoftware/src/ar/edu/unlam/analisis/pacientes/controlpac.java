@@ -11,10 +11,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import ar.edu.unlam.analisis.enums.ETipoInforme;
+import ar.edu.unlam.analisis.util.Encryptor;
+import ar.edu.unlam.analisis.util.FileUtils;
 
 public class controlpac {
-	/*
-	private static final String ARCHIVO_DATOS_MEDICO = "/Users/fpezzola/Desktop/datomed.txt";
+	
+	/*private static final String ARCHIVO_DATOS_MEDICO = "/Users/fpezzola/Desktop/datomed.txt";
 	private static final String ARCHIVO_SITUACION_PACIENTE = "/Users/fpezzola/Desktop/situpac.txt";
 	private static final String ARCHIVO_DATOS_PACIENTE = "/Users/fpezzola/Desktop/datopac.txt";*/
 	private static final String ARCHIVO_DATOS_MEDICO = "C:\\datomed.txt";
@@ -28,7 +30,7 @@ public class controlpac {
 		int sw;
 		String codm="",nomm = "",espm;
 			try {
-				DataInputStream datomed = leerArchivo(archivo);
+				DataInputStream datomed = FileUtils.leerArchivo(archivo);
 
 				sw = 1;
 				
@@ -104,7 +106,7 @@ public class controlpac {
 											// "situpac"
 
 				{
-					colEspecialidades.add(enfp);
+					colEspecialidades.add(Encryptor.decode(enfp));
 				}
 			} catch (EOFException e) {
 				sw = 0;
@@ -116,7 +118,7 @@ public class controlpac {
 	@SuppressWarnings("unused")
 	private static Collection<String> darPacientesAtendidosPorMedico(String nomm, String codtem)throws FileNotFoundException, IOException {
 		Collection<String> colPacientes = new ArrayList<String>();
-		DataInputStream situpac = leerArchivo(ARCHIVO_SITUACION_PACIENTE);
+		DataInputStream situpac = FileUtils.leerArchivo(ARCHIVO_SITUACION_PACIENTE);
 		String codp;
 		String codpa;
 		String nompa;
@@ -146,7 +148,7 @@ public class controlpac {
 											// "situpac"
 				{
 
-					DataInputStream datopac = leerArchivo(ARCHIVO_DATOS_PACIENTE);
+					DataInputStream datopac = FileUtils.leerArchivo(ARCHIVO_DATOS_PACIENTE);
 
 					sw1 = 1;
 					while (sw1 != 0) {
@@ -188,11 +190,7 @@ public class controlpac {
 		return colPacientes;
 	}
 
-	private static DataInputStream leerArchivo(String archivo) throws FileNotFoundException {
-		DataInputStream datomed = null;
-		datomed = new DataInputStream(new FileInputStream(archivo));
-		return datomed;
-	}
+	
 
 	public static void nuevoMedico(String codmed, String nombre,String especializacion) throws FileNotFoundException{
 		DataOutputStream datomed = null;
@@ -205,7 +203,6 @@ public class controlpac {
 
 		} catch (IOException ioe) {
 		}
-		;
 	}
 	
 	public static void nuevaSituacionPaciente(String codpac, String codmed,String diagnostico) throws FileNotFoundException{
@@ -214,12 +211,11 @@ public class controlpac {
 		try {
 			situpac.writeUTF(codpac);
 			situpac.writeUTF(codmed);
-			situpac.writeUTF(diagnostico);
+			situpac.writeUTF(Encryptor.encode(diagnostico));
 			situpac.close();
 
 		} catch (IOException ioe) {
 		}
-		;
 	}
 	
 	public static void nuevoPaciente(String codpac, String nompac) throws FileNotFoundException{
@@ -232,7 +228,6 @@ public class controlpac {
 
 		} catch (IOException ioe) {
 		}
-		;
 	}
 	
 

@@ -25,11 +25,11 @@ public class MainView extends JFrame {
 		setLocationRelativeTo(null);
 		JLabel lblTitle = new JLabel("Centro Medico Los Laureles");
 		lblTitle.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblTitle.setBounds(116, 19, 312, 16);
+		lblTitle.setBounds(132, 19, 312, 16);
 		getContentPane().add(lblTitle);
 		
 		JLabel lblControlDePacientes = new JLabel("Control de Pacientes");
-		lblControlDePacientes.setBounds(166, 47, 167, 16);
+		lblControlDePacientes.setBounds(175, 47, 167, 16);
 		getContentPane().add(lblControlDePacientes);
 		
 		JButton btnIngresoDatos = new JButton("Ingreso de Datos");
@@ -55,14 +55,15 @@ public class MainView extends JFrame {
 		btnInformes.setBounds(166, 159, 150, 29);
 		getContentPane().add(btnInformes);
 		
-		JButton btnSalir = new JButton("Salir");
-		btnSalir.addActionListener(new ActionListener() {
+		JButton btnCerrarSesion = new JButton("Cerrar Sesion");
+		btnCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setDefaultCloseOperation(EXIT_ON_CLOSE);
-				System.exit(0);
+				LoginView lw = new LoginView();
+				lw.setVisible(true);
+				dispose();
 			}
 		});
-		btnSalir.setBounds(166, 257, 150, 29);
-		getContentPane().add(btnSalir);
+		btnCerrarSesion.setBounds(166, 257, 150, 29);
+		getContentPane().add(btnCerrarSesion);
 	}
 }
