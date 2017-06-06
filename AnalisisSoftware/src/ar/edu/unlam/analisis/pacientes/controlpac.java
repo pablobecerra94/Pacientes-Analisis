@@ -1,56 +1,43 @@
 package ar.edu.unlam.analisis.pacientes;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.EOFException;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
-import ar.edu.unlam.analisis.enums.ETipoAccion;
 import ar.edu.unlam.analisis.enums.ETipoInforme;
 import ar.edu.unlam.analisis.util.Encryptor;
 import ar.edu.unlam.analisis.util.FileUtils;
-import ar.edu.unlam.analisis.util.LogUtils;
 
 public class controlpac {
 
 	private static final String ARCHIVO_DATOS_MEDICO = "src//resources//datomed.pac";
-	private static final String ARCHIVO_SITUACION_PACIENTE = "src//resources//situpac.pac";
-	private static final String ARCHIVO_DATOS_PACIENTE = "src//resources//datopac.pac";
+	private static final String ARCHIVO_SITUACION_PACIENTE = "src//resources//situpac.txt";
+	private static final String ARCHIVO_DATOS_PACIENTE = "src//resources//datopac.txt";
 
 	@SuppressWarnings("unused")
 	public static Collection<String> getInformeMedico(String codmed, ETipoInforme tipoInforme) throws Exception {
 		Collection<String> colReturn = new ArrayList<String>();
-		String archivo = ARCHIVO_DATOS_MEDICO;
 		int sw;
 		String codm = "", nomm = "", espm;
 		try {
-			DataInputStream datomed = FileUtils.leerArchivo(archivo);
-			List<String> archivoString = Files.readAllLines(Paths.get(ARCHIVO_DATOS_MEDICO));
-			sw = 1;
-			String[] archivoPartido = archivoString.get(0).split("");
-			/*
-			 * while (sw != 0) { try {
-			 * String[]archivoPartido=archivoString.get(0).split(" ");
-			 * System.out.println(archivoPartido[0]); codm = datomed.readUTF();
-			 * nomm = datomed.readUTF(); espm = datomed.readUTF();
-			 * 
-			 * } catch (EOFException e) { e.printStackTrace(); sw = 0; }
-			 */
+			FileReader fr = new FileReader(new File(ARCHIVO_DATOS_MEDICO));
+			BufferedReader br = new BufferedReader(fr);
+			String line;
 
-			for (int i = 0; i < archivoPartido.length; i++) {
-				codm = archivoPartido[i++];
-				nomm = archivoPartido[i++];
-				espm = archivoPartido[i++];
+			while ((line = br.readLine()) != null) {
+				int index = line.indexOf(":");
+				codm = line.substring(0, index);
+				int index2 = line.indexOf("|");
+				nomm = line.substring(index + 1, index2);
+				espm = line.substring(index2 + 1, line.length());
 
 				if (codm.equals(codmed)) // compara el codigo extraido de la
 											// tabla "datomed" con el codigo
@@ -64,13 +51,14 @@ public class controlpac {
 					}
 				}
 			}
+			br.close();
 
 		} catch (IOException ioe) {
 		}
 		return colReturn;
 	}
 
-	@SuppressWarnings({ "unused", "resource" })
+	@SuppressWarnings({ "unused" })
 	private static Collection<String> darEspecialidadesMedico(String nomm, String codtem)
 			throws FileNotFoundException, IOException {
 		Collection<String> colEspecialidades = new ArrayList<String>();
@@ -79,42 +67,23 @@ public class controlpac {
 		String codme;
 		String enfp;
 
-		DataInputStream situpac = null;
-		situpac = new DataInputStream(new FileInputStream(ARCHIVO_SITUACION_PACIENTE));
+		FileReader fr = new FileReader(new File(ARCHIVO_SITUACION_PACIENTE));
+		BufferedReader br = new BufferedReader(fr);
+		String line;
 
-		sw = 1;
-		while (sw != 0) {
-			try {
-				codp = situpac.readUTF();
-				codme = situpac.readUTF();
-				enfp = situpac.readUTF();
-
-				if (codtem.equals(codme)) // compara
-											// el
-											// codigo
-											// del
-											// medico
-											// de
-											// la
-											// tabla
-											// "datomed"
-											// con
-											// el
-											// codigo
-											// del
-											// medico
-											// en
-											// la
-											// tabla
-											// "situpac"
-
-				{
-					colEspecialidades.add(Encryptor.decode(enfp));
-				}
-			} catch (EOFException e) {
-				sw = 0;
+		while ((line = br.readLine()) != null) {
+			int index = line.indexOf(":");
+			codp = line.substring(0, index);
+			int index2 = line.indexOf("|");
+			codme = line.substring(index + 1, index2);
+			enfp = line.substring(index2 + 1, line.length());
+			if (codtem.equals(codme)) {
+				colEspecialidades.add(Encryptor.decode(enfp));
 			}
+
 		}
+		br.close();
+		fr.close();
 		return colEspecialidades;
 	}
 
@@ -122,7 +91,6 @@ public class controlpac {
 	private static Collection<String> darPacientesAtendidosPorMedico(String nomm, String codtem)
 			throws FileNotFoundException, IOException {
 		Collection<String> colPacientes = new ArrayList<String>();
-		DataInputStream situpac = FileUtils.leerArchivo(ARCHIVO_SITUACION_PACIENTE);
 		String codp;
 		String codpa;
 		String nompa;
@@ -130,67 +98,52 @@ public class controlpac {
 		String enfp;
 		int sw = 1;
 		int sw1;
-		while (sw != 0) {
-			try {
-				codp = situpac.readUTF();
-				codme = situpac.readUTF();
-				enfp = situpac.readUTF();
 
-				if (codme.equals(codtem)) // compara el codigo medico de la
-											// tabla "datomed" con el de la
-											// tabla "situpac"
-				{
+		FileReader fr = new FileReader(new File(ARCHIVO_SITUACION_PACIENTE));
+		BufferedReader br = new BufferedReader(fr);
+		String line;
 
-					DataInputStream datopac = FileUtils.leerArchivo(ARCHIVO_DATOS_PACIENTE);
+		while ((line = br.readLine()) != null) {
+			int index = line.indexOf(":");
+			codp = line.substring(0, index);
+			int index2 = line.indexOf("|");
+			codme = line.substring(index + 1, index2);
+			enfp = line.substring(index2 + 1, line.length());
 
-					sw1 = 1;
-					while (sw1 != 0) {
-						try {
-							codpa = datopac.readUTF();
-							nompa = datopac.readUTF();
+			if (codme.equals(codtem)) {
 
-							if (codpa.equals(codp)) // compara el codigo del
-													// paciente de la tabla
-													// "situpac" con el codigo
-													// del paciente de la tabla
-													// "datopac"
-							{
-								colPacientes.add(nompa);
-							}
-						} catch (EOFException e) {
-							sw1 = 0;
-						}
+				FileReader fr2 = new FileReader(new File(ARCHIVO_DATOS_PACIENTE));
+				BufferedReader br2 = new BufferedReader(fr2);
+				String line2;
+
+				while ((line2 = br2.readLine()) != null) {
+					int index3 = line2.indexOf(":");
+					codpa = line2.substring(0, index3);
+					nompa = line2.substring(index3 + 1, line2.length());
+
+					if (codpa.equals(codp)) {
+						colPacientes.add(nompa);
 					}
 				}
-			} catch (EOFException e) {
-				sw = 0;
+				br2.close();
+				fr2.close();
 			}
 
 		}
+		br.close();
+		fr.close();
+
 		return colPacientes;
+
 	}
 
 	public static void nuevoMedico(String codmed, String nombre, String especializacion) throws Exception {
 
-		DataOutputStream datomed = null;
-		datomed = new DataOutputStream(new FileOutputStream(ARCHIVO_DATOS_MEDICO, true));
-		try {
-
-			datomed.writeUTF(codmed);
-			datomed.writeUTF(nombre);
-			datomed.writeUTF(especializacion);
-			datomed.flush();
-			datomed.close();
-			LogUtils.log(ARCHIVO_DATOS_MEDICO, ETipoAccion.ALTA_MEDICO, codmed, nombre, especializacion);
-
-		} catch (Exception ioe) {
-			throw new Exception(ioe.getMessage());
-		}
-		/*
-		 * PrintWriter printWriter = new PrintWriter(new FileOutputStream(new
-		 * File(ARCHIVO_DATOS_MEDICO), true)); printWriter.print((codmed + " " +
-		 * nombre + " " + especializacion + " ")); printWriter.close();
-		 */
+		FileWriter fw = new FileWriter(new File(ARCHIVO_DATOS_MEDICO), true);
+		BufferedWriter bw = new BufferedWriter(fw);
+		PrintWriter pw = new PrintWriter(bw);
+		pw.println(codmed + ":" + nombre + "|" + especializacion);
+		pw.close();
 
 	}
 
@@ -205,35 +158,24 @@ public class controlpac {
 		 * Encryptor.encode(diagnostico));
 		 * 
 		 * } catch (Exception ioe) { throw new Exception(ioe.getMessage()); }
+		 * 
 		 */
 
-		/*
-		 * PrintWriter printWriter = new PrintWriter(new FileOutputStream(new
-		 * File(ARCHIVO_SITUACION_PACIENTE), true)); printWriter.print((codpac +
-		 * " " + codmed + " " + Encryptor.encode(diagnostico) + " "));
-		 * printWriter.close();
-		 */
+		FileWriter fw = new FileWriter(new File(ARCHIVO_SITUACION_PACIENTE), true);
+		BufferedWriter bw = new BufferedWriter(fw);
+		PrintWriter pw = new PrintWriter(bw);
+		pw.println(codpac + ":" + codmed + "|" + Encryptor.encode(diagnostico));
+		pw.close();
 
 	}
 
 	public static void nuevoPaciente(String codpac, String nompac) throws Exception {
-		DataOutputStream datopac = null;
-		datopac = new DataOutputStream(new FileOutputStream(ARCHIVO_DATOS_PACIENTE, true));
-		try {
-			datopac.writeUTF(codpac);
-			datopac.writeUTF(nompac);
-			datopac.close();
-			LogUtils.log(ARCHIVO_SITUACION_PACIENTE, ETipoAccion.ALTA_SITUACION_PACIENTE, codpac, nompac);
 
-		} catch (Exception ioe) {
-			throw new Exception(ioe.getMessage());
-		}
-
-		/*
-		 * PrintWriter printWriter = new PrintWriter(new FileOutputStream(new
-		 * File(ARCHIVO_DATOS_PACIENTE), true)); printWriter.print((codpac + " "
-		 * + nompac + " ")); printWriter.close();
-		 */
+		FileWriter fw = new FileWriter(new File(ARCHIVO_DATOS_PACIENTE), true);
+		BufferedWriter bw = new BufferedWriter(fw);
+		PrintWriter pw = new PrintWriter(bw);
+		pw.println(codpac + ":" + nompac);
+		pw.close();
 
 	}
 
