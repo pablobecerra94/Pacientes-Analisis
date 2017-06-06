@@ -11,6 +11,9 @@ import javax.swing.JLabel;
 
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
+import ar.edu.unlam.analisis.login.LoginService;
+import ar.edu.unlam.analisis.login.UserProvider;
+
 /**
  * Vista Principal del sistema
  * @author fpezzola
@@ -59,11 +62,17 @@ public class MainView extends JFrame {
 		btnCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LoginView lw = new LoginView();
+				LoginService.logout();
 				lw.setVisible(true);
 				dispose();
 			}
 		});
 		btnCerrarSesion.setBounds(166, 257, 150, 29);
 		getContentPane().add(btnCerrarSesion);
+		
+		JLabel label = new JLabel("Usuario: "+UserProvider.getUsuarioLogueado());
+		label.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+		label.setBounds(6, 17, 90 + label.getText().length(), 16);
+		getContentPane().add(label);
 	}
 }

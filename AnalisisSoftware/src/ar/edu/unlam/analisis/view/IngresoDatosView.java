@@ -1,12 +1,15 @@
 package ar.edu.unlam.analisis.view;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
+import ar.edu.unlam.analisis.login.UserProvider;
 
 @SuppressWarnings("serial")
 public class IngresoDatosView extends JFrame{
@@ -62,6 +65,11 @@ public class IngresoDatosView extends JFrame{
 		});
 		btnVolver.setBounds(327, 243, 117, 29);
 		getContentPane().add(btnVolver);
+		
+		JLabel label = new JLabel("Usuario: "+UserProvider.getUsuarioLogueado());
+		label.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+		label.setBounds(6, 17, 90 + label.getText().length(), 16);
+		getContentPane().add(label);
 	}
 
 }

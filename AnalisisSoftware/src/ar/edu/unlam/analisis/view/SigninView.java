@@ -94,6 +94,7 @@ public class SigninView extends JFrame{
 							HandleResponseUtil.showMessageError(respuesta);
 						}else{
 							HandleResponseUtil.showMessageSuccess("Usuario registrado con exito. Bienvenido: "+ usrText.getText());
+							LoginService.login(usrText.getText(), ps1);
 							MainView mw = new MainView();
 							mw.setVisible(true);
 							dispose();

@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import ar.edu.unlam.analisis.enums.ETipoInforme;
+import ar.edu.unlam.analisis.login.UserProvider;
 import ar.edu.unlam.analisis.pacientes.controlpac;
 import ar.edu.unlam.analisis.util.HandleResponseUtil;
 import java.awt.Font;
@@ -99,5 +100,9 @@ public class PacientesPorMedicoView extends JFrame{
 		lblPacientesPorMedico.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		lblPacientesPorMedico.setBounds(171, 21, 246, 16);
 		getContentPane().add(lblPacientesPorMedico);
+		JLabel label = new JLabel("Usuario: "+UserProvider.getUsuarioLogueado());
+		label.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+		label.setBounds(6, 17, 90 + label.getText().length(), 16);
+		getContentPane().add(label);
 	}
 }

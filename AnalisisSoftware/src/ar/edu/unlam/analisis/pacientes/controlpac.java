@@ -10,18 +10,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import ar.edu.unlam.analisis.enums.ETipoAccion;
 import ar.edu.unlam.analisis.enums.ETipoInforme;
 import ar.edu.unlam.analisis.util.Encryptor;
 import ar.edu.unlam.analisis.util.FileUtils;
+import ar.edu.unlam.analisis.util.LogUtils;
 
 public class controlpac {
 	
-	/*private static final String ARCHIVO_DATOS_MEDICO = "/Users/fpezzola/Desktop/datomed.txt";
+	private static final String ARCHIVO_DATOS_MEDICO = "/Users/fpezzola/Desktop/datomed.txt";
 	private static final String ARCHIVO_SITUACION_PACIENTE = "/Users/fpezzola/Desktop/situpac.txt";
-	private static final String ARCHIVO_DATOS_PACIENTE = "/Users/fpezzola/Desktop/datopac.txt";*/
-	private static final String ARCHIVO_DATOS_MEDICO = "C:\\datomed.txt";
+	private static final String ARCHIVO_DATOS_PACIENTE = "/Users/fpezzola/Desktop/datopac.txt";
+	/*private static final String ARCHIVO_DATOS_MEDICO = "C:\\datomed.txt";
 	private static final String ARCHIVO_SITUACION_PACIENTE = "C:\\situpac.txt";
-	private static final String ARCHIVO_DATOS_PACIENTE = "C:\\datopac.txt";
+	private static final String ARCHIVO_DATOS_PACIENTE = "C:\\datopac.txt";*/
+	
 	
 	@SuppressWarnings("unused")
 	public static Collection<String> getInformeMedico(String codmed, ETipoInforme tipoInforme) throws Exception{
@@ -192,7 +195,7 @@ public class controlpac {
 
 	
 
-	public static void nuevoMedico(String codmed, String nombre,String especializacion) throws FileNotFoundException{
+	public static void nuevoMedico(String codmed, String nombre,String especializacion) throws Exception{
 		DataOutputStream datomed = null;
 		datomed = new DataOutputStream(new FileOutputStream(ARCHIVO_DATOS_MEDICO));
 		try {
@@ -200,12 +203,14 @@ public class controlpac {
 				datomed.writeUTF(nombre);
 				datomed.writeUTF(especializacion);
 				datomed.close();
+				LogUtils.log(ARCHIVO_DATOS_MEDICO, ETipoAccion.ALTA_MEDICO, codmed, nombre,especializacion);
 
-		} catch (IOException ioe) {
+		} catch (Exception ioe) {
+			throw new Exception(ioe.getMessage());
 		}
 	}
 	
-	public static void nuevaSituacionPaciente(String codpac, String codmed,String diagnostico) throws FileNotFoundException{
+	public static void nuevaSituacionPaciente(String codpac, String codmed,String diagnostico) throws Exception{
 		DataOutputStream situpac = null;
 		situpac = new DataOutputStream(new FileOutputStream(ARCHIVO_SITUACION_PACIENTE));
 		try {
@@ -213,20 +218,24 @@ public class controlpac {
 			situpac.writeUTF(codmed);
 			situpac.writeUTF(Encryptor.encode(diagnostico));
 			situpac.close();
+			LogUtils.log(ARCHIVO_SITUACION_PACIENTE, ETipoAccion.ALTA_SITUACION_PACIENTE, codpac,codmed,Encryptor.encode(diagnostico));
 
-		} catch (IOException ioe) {
+		} catch (Exception ioe) {
+			throw new Exception(ioe.getMessage());
 		}
 	}
 	
-	public static void nuevoPaciente(String codpac, String nompac) throws FileNotFoundException{
+	public static void nuevoPaciente(String codpac, String nompac) throws Exception{
 		DataOutputStream datopac = null;
 		datopac = new DataOutputStream(new FileOutputStream(ARCHIVO_DATOS_PACIENTE));
 		try {
 				datopac.writeUTF(codpac);
 				datopac.writeUTF(nompac);
 				datopac.close();
+				LogUtils.log(ARCHIVO_SITUACION_PACIENTE, ETipoAccion.ALTA_SITUACION_PACIENTE, codpac,nompac);
 
-		} catch (IOException ioe) {
+		} catch (Exception ioe) {
+			throw new Exception(ioe.getMessage());
 		}
 	}
 	

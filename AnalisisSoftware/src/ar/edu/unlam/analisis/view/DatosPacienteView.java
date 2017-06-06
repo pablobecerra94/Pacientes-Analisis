@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
+import ar.edu.unlam.analisis.login.UserProvider;
 import ar.edu.unlam.analisis.pacientes.controlpac;
 import ar.edu.unlam.analisis.util.HandleResponseUtil;
 
@@ -11,6 +12,7 @@ import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
@@ -37,7 +39,7 @@ public class DatosPacienteView extends JFrame {
 						controlpac.nuevoPaciente(textFieldCodigo.getText(), textFieldNombre.getText());
 						limpiar();
 						HandleResponseUtil.showMessageSuccess(HandleResponseUtil.COMMON_SUCCESS);
-					} catch (FileNotFoundException e1) {
+					} catch (Exception e1) {
 						HandleResponseUtil.showMessageError(HandleResponseUtil.COMMON_ERROR);
 					}
 				}else{
@@ -89,6 +91,10 @@ public class DatosPacienteView extends JFrame {
 		JLabel lblNuevoPaciente = new JLabel("Nuevo Paciente");
 		lblNuevoPaciente.setBounds(183, 6, 103, 16);
 		getContentPane().add(lblNuevoPaciente);
+		JLabel label = new JLabel("Usuario: "+UserProvider.getUsuarioLogueado());
+		label.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+		label.setBounds(6, 17, 90 + label.getText().length(), 16);
+		getContentPane().add(label);
 	}
 	
 	public void limpiar(){

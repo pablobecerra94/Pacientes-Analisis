@@ -6,6 +6,9 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
+import ar.edu.unlam.analisis.login.UserProvider;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -56,6 +59,11 @@ public class InformesView extends JFrame{
 		});
 		btnVolver.setBounds(327, 243, 117, 29);
 		getContentPane().add(btnVolver);
+		
+		JLabel label = new JLabel("Usuario: "+UserProvider.getUsuarioLogueado());
+		label.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+		label.setBounds(6, 17, 90 + label.getText().length(), 16);
+		getContentPane().add(label);
 	}
 
 }

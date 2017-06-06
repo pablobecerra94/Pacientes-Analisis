@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
 import ar.edu.unlam.analisis.enums.ETipoInforme;
+import ar.edu.unlam.analisis.login.UserProvider;
 import ar.edu.unlam.analisis.pacientes.controlpac;
 import ar.edu.unlam.analisis.util.HandleResponseUtil;
 
@@ -96,5 +97,9 @@ public class EnfermedadesMedicoView extends JFrame{
 		lblEspecialidadesDelMedico.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		lblEspecialidadesDelMedico.setBounds(118, 19, 238, 16);
 		getContentPane().add(lblEspecialidadesDelMedico);
+		JLabel label = new JLabel("Usuario: "+UserProvider.getUsuarioLogueado());
+		label.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+		label.setBounds(6, 17, 90 + label.getText().length(), 16);
+		getContentPane().add(label);
 	}
 }

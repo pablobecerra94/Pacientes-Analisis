@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import ar.edu.unlam.analisis.login.UserProvider;
 import ar.edu.unlam.analisis.pacientes.controlpac;
 import ar.edu.unlam.analisis.util.HandleResponseUtil;
 
@@ -13,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class SituacionPacienteView extends JFrame{
@@ -75,7 +77,7 @@ public class SituacionPacienteView extends JFrame{
 						controlpac.nuevaSituacionPaciente(textFieldCodigoPaciente.getText(), textFieldCodigoMedico.getText(), textAreaDiagnostico.getText());
 						limpiar();
 						HandleResponseUtil.showMessageSuccess(HandleResponseUtil.COMMON_SUCCESS);
-					} catch (FileNotFoundException e1) {
+					} catch (Exception e1) {
 						HandleResponseUtil.showMessageError(HandleResponseUtil.COMMON_ERROR);
 					}
 				}else{
@@ -104,6 +106,11 @@ public class SituacionPacienteView extends JFrame{
 		getContentPane().add(btnLimpiar);
 		getContentPane().add(btnRegistrar);
 		getContentPane().add(btnVolver);
+		
+		JLabel label = new JLabel("Usuario: "+UserProvider.getUsuarioLogueado());
+		label.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+		label.setBounds(6, 17, 90 + label.getText().length(), 16);
+		getContentPane().add(label);
 	}
 	
 	public void limpiar(){
