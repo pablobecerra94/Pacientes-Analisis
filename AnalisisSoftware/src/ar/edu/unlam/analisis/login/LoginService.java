@@ -19,7 +19,7 @@ import ar.edu.unlam.analisis.util.Encryptor;
 
 public class LoginService {
 	
-	private static final String ARCHIVO_USUARIOS = "/Users/fpezzola/Desktop/datousr.txt";
+	private static final String ARCHIVO_USUARIOS = "src//resources//datousr.bd";
 	/*private static final String ARCHIVO_USUARIOS = "C:\\datousr.txt";*/
 	
 	/**

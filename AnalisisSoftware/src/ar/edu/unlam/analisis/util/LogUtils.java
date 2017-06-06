@@ -11,7 +11,7 @@ import ar.edu.unlam.analisis.login.UserProvider;
 
 public class LogUtils {
 	
-	private static final String ARCHIVO_LOG = "/Users/fpezzola/Desktop/log.txt";
+	private static final String ARCHIVO_LOG = "src//resources//log.lg";
 	
 	/**
 	 * El metodo levanta el usuario logueado de un threadLocal implementado en el UserProvider

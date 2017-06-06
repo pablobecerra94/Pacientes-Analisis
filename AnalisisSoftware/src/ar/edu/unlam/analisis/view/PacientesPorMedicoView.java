@@ -1,9 +1,9 @@
 package ar.edu.unlam.analisis.view;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.LineNumberInputStream;
 import java.util.Collection;
 
 import javax.swing.DefaultListModel;
@@ -18,7 +18,6 @@ import ar.edu.unlam.analisis.enums.ETipoInforme;
 import ar.edu.unlam.analisis.login.UserProvider;
 import ar.edu.unlam.analisis.pacientes.controlpac;
 import ar.edu.unlam.analisis.util.HandleResponseUtil;
-import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class PacientesPorMedicoView extends JFrame{

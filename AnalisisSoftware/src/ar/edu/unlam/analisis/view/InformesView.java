@@ -38,7 +38,7 @@ public class InformesView extends JFrame{
 		btnListadoDePacientes.setBounds(71, 86, 300, 29);
 		getContentPane().add(btnListadoDePacientes);
 		
-		JButton btnEnfrermedadesQueAtiende = new JButton("Enfrermedades que atiende cada Medico");
+		JButton btnEnfrermedadesQueAtiende = new JButton("Enfermedades que atiende cada Medico");
 		btnEnfrermedadesQueAtiende.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EnfermedadesMedicoView emw = new EnfermedadesMedicoView();

@@ -1,20 +1,19 @@
 package ar.edu.unlam.analisis.view;
 
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import ar.edu.unlam.analisis.login.UserProvider;
 import ar.edu.unlam.analisis.pacientes.controlpac;
 import ar.edu.unlam.analisis.util.HandleResponseUtil;
-
-import javax.swing.JTextArea;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class SituacionPacienteView extends JFrame{

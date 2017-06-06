@@ -9,8 +9,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-
 import ar.edu.unlam.analisis.login.LoginService;
 import ar.edu.unlam.analisis.login.UserProvider;
 

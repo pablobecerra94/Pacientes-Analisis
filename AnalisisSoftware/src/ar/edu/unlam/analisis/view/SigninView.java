@@ -1,21 +1,18 @@
 package ar.edu.unlam.analisis.view;
 
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import ar.edu.unlam.analisis.login.LoginService;
-import ar.edu.unlam.analisis.pacientes.controlpac;
 import ar.edu.unlam.analisis.util.HandleResponseUtil;
-
-import javax.swing.JPasswordField;
-import javax.swing.JLabel;
-
-import java.awt.Dimension;
-import java.awt.Font;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class SigninView extends JFrame{
