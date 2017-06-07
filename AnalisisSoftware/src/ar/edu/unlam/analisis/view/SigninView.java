@@ -53,6 +53,7 @@ public class SigninView extends JFrame{
 		getContentPane().add(lblRegistrarse);
 		
 		JButton btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.setToolTipText("Presione este botón para vaciar los campos");
 		btnLimpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				usrText.setText("");
@@ -64,6 +65,7 @@ public class SigninView extends JFrame{
 		getContentPane().add(btnLimpiar);
 		
 		JButton btnRegistrarse = new JButton("Registrarse");
+		btnRegistrarse.setToolTipText("Presione este botón para registrar un nuevo usuario");
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				StringBuilder errors = new StringBuilder("");
@@ -109,6 +111,7 @@ public class SigninView extends JFrame{
 		getContentPane().add(btnRegistrarse);
 		
 		JButton btnSalir = new JButton("Salir");
+		btnSalir.setToolTipText("Presione este boton para cerrar el programa");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -119,6 +122,7 @@ public class SigninView extends JFrame{
 		getContentPane().add(btnSalir);
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setToolTipText("Presione este botón para volver al menú anterior");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LoginView lw = new LoginView();

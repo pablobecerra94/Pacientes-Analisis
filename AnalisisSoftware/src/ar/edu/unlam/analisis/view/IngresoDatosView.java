@@ -22,6 +22,7 @@ public class IngresoDatosView extends JFrame{
 		getContentPane().add(lblIngresoDePacientes);
 		
 		JButton btnDatosPaciente = new JButton("Datos Paciente");
+		btnDatosPaciente.setToolTipText("Presione este botón para ingresar datos de un nuevo paciente");
 		btnDatosPaciente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DatosPacienteView dp = new DatosPacienteView();
@@ -32,7 +33,8 @@ public class IngresoDatosView extends JFrame{
 		btnDatosPaciente.setBounds(158, 73, 152, 29);
 		getContentPane().add(btnDatosPaciente);
 		
-		JButton btnSituacionPaciente = new JButton("Situacion Paciente");
+		JButton btnSituacionPaciente = new JButton("Situación Paciente");
+		btnSituacionPaciente.setToolTipText("Presione este botón para ingresar una nueva situación de un paciente atendida por un médico");
 		btnSituacionPaciente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SituacionPacienteView spw = new SituacionPacienteView();
@@ -44,6 +46,7 @@ public class IngresoDatosView extends JFrame{
 		getContentPane().add(btnSituacionPaciente);
 		
 		JButton btnDatosMedico = new JButton("Datos Medico");
+		btnDatosMedico.setToolTipText("Presione este botón para ingresar datos de un nuevo médico");
 		btnDatosMedico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DatosMedicoView dmw = new DatosMedicoView();
@@ -56,6 +59,7 @@ public class IngresoDatosView extends JFrame{
 		getContentPane().add(btnDatosMedico);
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setToolTipText("Presione este botón para volver al menú anterior");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MainView mw = new MainView();

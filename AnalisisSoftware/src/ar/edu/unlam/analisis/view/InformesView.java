@@ -28,6 +28,7 @@ public class InformesView extends JFrame{
 		getContentPane().add(lblInformes);
 		
 		JButton btnListadoDePacientes = new JButton("Listado de Pacientes Por Medico");
+		btnListadoDePacientes.setToolTipText("Presione este boton para obtener los pacientes que son atendidos por un médico ingresado");
 		btnListadoDePacientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PacientesPorMedicoView ppmw = new PacientesPorMedicoView();
@@ -39,6 +40,7 @@ public class InformesView extends JFrame{
 		getContentPane().add(btnListadoDePacientes);
 		
 		JButton btnEnfrermedadesQueAtiende = new JButton("Enfermedades que atiende cada Medico");
+		btnEnfrermedadesQueAtiende.setToolTipText("Presione este boton para obtener las enfermedades tratadas por un médico ingresado");
 		btnEnfrermedadesQueAtiende.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EnfermedadesMedicoView emw = new EnfermedadesMedicoView();
@@ -50,6 +52,7 @@ public class InformesView extends JFrame{
 		getContentPane().add(btnEnfrermedadesQueAtiende);
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setToolTipText("Presione este botón para volver al menú anterior");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MainView mw = new MainView();

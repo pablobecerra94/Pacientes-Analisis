@@ -29,6 +29,7 @@ public class PacientesPorMedicoView extends JFrame{
 		setSize(new Dimension(500, 500));
 		setLocationRelativeTo(null);
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setToolTipText("Presione este botón para volver al menú anterior");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				InformesView iw = new InformesView();
@@ -40,12 +41,13 @@ public class PacientesPorMedicoView extends JFrame{
 		getContentPane().add(btnVolver);
 		
 		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.setToolTipText("Presione este boton para ver los pacientes atendidos por el medico ingresado");
 		btnBuscar.addActionListener(new ActionListener() {
 			@SuppressWarnings({ "unchecked", "rawtypes" })
 			public void actionPerformed(ActionEvent e) {
 				
 				if(textFieldCodigoMedico.getText().isEmpty()){
-					HandleResponseUtil.showMessageError("El codigo del meedico es necesario");
+					HandleResponseUtil.showMessageError("El codigo del médico es necesario");
 					return;
 				}
 				
@@ -68,6 +70,7 @@ public class PacientesPorMedicoView extends JFrame{
 		getContentPane().add(btnBuscar);
 		
 		JButton btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.setToolTipText("Presione este botón para vaciar los campos");
 		btnLimpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				textFieldCodigoMedico.setText("");

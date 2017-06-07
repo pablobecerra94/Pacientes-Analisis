@@ -47,6 +47,7 @@ public class SituacionPacienteView extends JFrame{
 		textAreaDiagnostico.setBounds(142, 147, 203, 72);
 		
 		JButton btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.setToolTipText("Presione este botón para vaciar los campos");
 		btnLimpiar.setBounds(72, 231, 117, 29);
 		btnLimpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -55,6 +56,7 @@ public class SituacionPacienteView extends JFrame{
 		});
 		
 		JButton btnRegistrar = new JButton("Registrar");
+		btnRegistrar.setToolTipText("Presione este botón para registrar una nueva situación de un paciente atendida por un médico");
 		btnRegistrar.setBounds(259, 231, 117, 29);
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -86,6 +88,7 @@ public class SituacionPacienteView extends JFrame{
 		});
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setToolTipText("Presione este botón para volver al menú anterior");
 		btnVolver.setBounds(384, 300, 117, 29);
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

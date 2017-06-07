@@ -23,6 +23,7 @@ public class DatosPacienteView extends JFrame {
 		setSize(new Dimension(500, 500));
 		setLocationRelativeTo(null);
 		JButton btnRegistrar = new JButton("Registrar");
+		btnRegistrar.setToolTipText("Presione este botón para guardar un nuevo paciente con los datos ingresados");
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				StringBuilder errors = new StringBuilder("");
@@ -50,6 +51,7 @@ public class DatosPacienteView extends JFrame {
 		getContentPane().add(btnRegistrar);
 		
 		JButton btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.setToolTipText("Presione este botón para vaciar los campos");
 		btnLimpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				limpiar();
@@ -59,6 +61,7 @@ public class DatosPacienteView extends JFrame {
 		getContentPane().add(btnLimpiar);
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setToolTipText("Presione este botón para volver al menú anterior");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				IngresoDatosView idw = new IngresoDatosView();

@@ -34,6 +34,7 @@ public class MainView extends JFrame {
 		getContentPane().add(lblControlDePacientes);
 		
 		JButton btnIngresoDatos = new JButton("Ingreso de Datos");
+		btnIngresoDatos.setToolTipText("Presione este botón para ingresasr nuevos datos al sistema");
 		btnIngresoDatos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				IngresoDatosView idw = new IngresoDatosView();
@@ -46,6 +47,7 @@ public class MainView extends JFrame {
 		getContentPane().add(btnIngresoDatos);
 		
 		JButton btnInformes = new JButton("Informes");
+		btnInformes.setToolTipText("Presione este botón para ver informes");
 		btnInformes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				InformesView iw = new InformesView();
@@ -57,6 +59,7 @@ public class MainView extends JFrame {
 		getContentPane().add(btnInformes);
 		
 		JButton btnCerrarSesion = new JButton("Cerrar Sesion");
+		btnCerrarSesion.setToolTipText("Presione este botón para salir y volver al menú de ingreso al sistema");
 		btnCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LoginView lw = new LoginView();

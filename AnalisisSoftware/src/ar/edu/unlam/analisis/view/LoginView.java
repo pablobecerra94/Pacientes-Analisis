@@ -34,7 +34,8 @@ public class LoginView extends JFrame{
 		lblContrasenia.setBounds(70, 117, 88, 16);
 		getContentPane().add(lblContrasenia);
 		
-		JButton btnIniciarSesion = new JButton("iniciar Sesion");
+		JButton btnIniciarSesion = new JButton("Iniciar Sesión");
+		btnIniciarSesion.setToolTipText("Presione este boton para ingresar al sistema");
 		btnIniciarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				StringBuilder errors = new StringBuilder("");
@@ -67,6 +68,7 @@ public class LoginView extends JFrame{
 		getContentPane().add(btnIniciarSesion);
 		
 		JButton btnRegistrarse = new JButton("Registrarse");
+		btnRegistrarse.setToolTipText("Presione este botón para registrar un nuevo usuario");
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SigninView sw = new SigninView();
@@ -78,6 +80,7 @@ public class LoginView extends JFrame{
 		getContentPane().add(btnRegistrarse);
 		
 		JButton btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.setToolTipText("Presione este botón para vaciar los campos");
 		btnLimpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				passwordField.setText("");
@@ -88,6 +91,7 @@ public class LoginView extends JFrame{
 		getContentPane().add(btnLimpiar);
 		
 		JButton btnSalir = new JButton("Salir");
+		btnSalir.setToolTipText("Presione este boton para cerrar el programa");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setDefaultCloseOperation(EXIT_ON_CLOSE);
