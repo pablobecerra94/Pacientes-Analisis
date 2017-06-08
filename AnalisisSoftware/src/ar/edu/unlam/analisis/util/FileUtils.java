@@ -7,8 +7,8 @@ import java.io.FileNotFoundException;
 public class FileUtils {
 
 	public static DataInputStream leerArchivo(String archivo) throws FileNotFoundException {
-		DataInputStream data = null;
-		data = new DataInputStream(new FileInputStream(archivo));
-		return data;
+		DataInputStream data = null; 
+		data = new DataInputStream(new FileInputStream(archivo)); //crea un inputStream a partir del archivo
+		return data; //retorna el inputStram.
 	}
 }
