@@ -2,7 +2,6 @@ package ar.edu.unlam.analisis.pacientes;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -14,7 +13,6 @@ import java.util.Collection;
 
 import ar.edu.unlam.analisis.enums.ETipoInforme;
 import ar.edu.unlam.analisis.util.Encryptor;
-import ar.edu.unlam.analisis.util.FileUtils;
 
 public class controlpac {
 
