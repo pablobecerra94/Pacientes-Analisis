@@ -31,92 +31,92 @@ public class MainView extends JFrame {
 	protected static final String RUTA_MANUAL_DE_USUARIO = "src//resources//manual.pdf";
 
 	public MainView() {
-		getContentPane().setLayout(null);
-		setSize(new Dimension(500, 500));
-		setLocationRelativeTo(null);
-		JLabel lblTitle = new JLabel("Centro Medico Los Laureles");
-		lblTitle.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblTitle.setBounds(132, 19, 312, 16);
-		getContentPane().add(lblTitle);
+		getContentPane().setLayout(null);//setea un layout absoluto
+		setSize(new Dimension(500, 500));//setea la dimension de la ventana
+		setLocationRelativeTo(null); //setea que no este relativa a nada la pantalla
+		JLabel lblTitle = new JLabel("Centro Medico Los Laureles");//crea un label
+		lblTitle.setFont(new Font("Lucida Grande", Font.PLAIN, 16));//setea la fuente del label
+		lblTitle.setBounds(132, 19, 312, 16);//setea las medidas del label
+		getContentPane().add(lblTitle);//lo agrega a la ventana
 		
-		JLabel lblControlDePacientes = new JLabel("Control de Pacientes");
-		lblControlDePacientes.setBounds(175, 47, 167, 16);
+		JLabel lblControlDePacientes = new JLabel("Control de Pacientes");//crea un label
+		lblControlDePacientes.setBounds(175, 47, 167, 16);//setea las medidas
 		getContentPane().add(lblControlDePacientes);
 		
-		JButton btnIngresoDatos = new JButton("Ingreso de Datos");
-		btnIngresoDatos.setToolTipText("Presione este botón para ingresasr nuevos datos al sistema");
-		btnIngresoDatos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				IngresoDatosView idw = new IngresoDatosView();
-				idw.setVisible(true);
-				dispose();
+		JButton btnIngresoDatos = new JButton("Ingreso de Datos");//crea un boton
+		btnIngresoDatos.setToolTipText("Presione este botón para ingresasr nuevos datos al sistema");//agrega el tooltip text
+		btnIngresoDatos.addActionListener(new ActionListener() {//agrega un listener para escuchar el clicks
+			public void actionPerformed(ActionEvent e) {//metodo para escuchar clicks
+				IngresoDatosView idw = new IngresoDatosView(); //crea una pantalla de ingreso de datos
+				idw.setVisible(true); //pone la pantalla de ingreso de datos visible
+				dispose(); //cierra la pantalla
 				
 			}
 		});
-		btnIngresoDatos.setBounds(166, 102, 150, 29);
-		getContentPane().add(btnIngresoDatos);
+		btnIngresoDatos.setBounds(166, 102, 150, 29);//setea las medidas del boton
+		getContentPane().add(btnIngresoDatos); //lo agrega a la pantalla
 		
-		JButton btnInformes = new JButton("Informes");
-		btnInformes.setToolTipText("Presione este botón para ver informes");
-		btnInformes.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				InformesView iw = new InformesView();
-				iw.setVisible(true);
-				dispose();
+		JButton btnInformes = new JButton("Informes");//crea un boton
+		btnInformes.setToolTipText("Presione este botón para ver informes");//agrega el tooltip text
+		btnInformes.addActionListener(new ActionListener() { //agrega un listener para escuchar el clicks
+			public void actionPerformed(ActionEvent e) { //metodo para escuchar clicks
+				InformesView iw = new InformesView();// crea una pantalla de informes
+				iw.setVisible(true);//pone la pantalla de informes visible
+				dispose(); //cierra la pantalla
 			}
 		});
-		btnInformes.setBounds(166, 159, 150, 29);
-		getContentPane().add(btnInformes);
+		btnInformes.setBounds(166, 159, 150, 29);//setea las medidas
+		getContentPane().add(btnInformes); // lo agrega a la pantalla
 		
-		JButton btnCerrarSesion = new JButton("Cerrar Sesion");
-		btnCerrarSesion.setToolTipText("Presione este botón para salir y volver al menú de ingreso al sistema");
-		btnCerrarSesion.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cerrarSesion();
+		JButton btnCerrarSesion = new JButton("Cerrar Sesion");//crea un boton
+		btnCerrarSesion.setToolTipText("Presione este botón para salir y volver al menú de ingreso al sistema");//agrega el tooltip text
+		btnCerrarSesion.addActionListener(new ActionListener() {//agrega un listener para escuchar el clicks
+			public void actionPerformed(ActionEvent e) {//metodo para escuchar clicks
+				cerrarSesion(); //cierra la sesion
 			}
 		});
-		btnCerrarSesion.setBounds(166, 257, 150, 29);
-		getContentPane().add(btnCerrarSesion);
+		btnCerrarSesion.setBounds(166, 257, 150, 29); //setea las medidas del boton
+		getContentPane().add(btnCerrarSesion); //lo agrega a la pantalla
 		
-		JLabel label = new JLabel("Usuario: "+UserProvider.getUsuarioLogueado());
-		label.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
-		label.setBounds(6, 17, 90 + label.getText().length(), 16);
-		getContentPane().add(label);
+		JLabel label = new JLabel("Usuario: "+UserProvider.getUsuarioLogueado());//crea un label
+		label.setFont(new Font("Lucida Grande", Font.PLAIN, 10)); //setea la fuente del label
+		label.setBounds(6, 17, 90 + label.getText().length(), 16); //setea las medidas del label
+		getContentPane().add(label);//lo agrega a la pantalla
 		
 	
-		JMenuBar menuBar = new JMenuBar();
+		JMenuBar menuBar = new JMenuBar(); //crea un JMenuBar
 
 		
-		JMenu menu = new JMenu("Archivo");
+		JMenu menu = new JMenu("Archivo"); //Crea un JMenu
 		menu.setMnemonic(KeyEvent.VK_A);
 		menu.getAccessibleContext().setAccessibleDescription("Menu para aspectos principales");
-		menuBar.add(menu);
+		menuBar.add(menu); //lo agrega al menu
 
-		JMenuItem menuItem = new JMenuItem("Salir",KeyEvent.VK_S);
+		JMenuItem menuItem = new JMenuItem("Salir",KeyEvent.VK_S);//Crea un JMenuItem
 		menuItem.getAccessibleContext().setAccessibleDescription( "Presione para cerrar la sesion");
-		menu.add(menuItem);
-		menuItem.addActionListener(new ActionListener(){
+		menu.add(menuItem);//lo agrega al menu
+		menuItem.addActionListener(new ActionListener(){//agrega un listener para escuchar los clicks
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				cerrarSesion();
+			public void actionPerformed(ActionEvent e) { //metodo para escuchar clicks
+				cerrarSesion();//Cierra la sesion
 			}	
 		});
 		
-		JMenu menuAyuda = new JMenu("Ayuda");
+		JMenu menuAyuda = new JMenu("Ayuda"); //crea un JMenu
 		menuAyuda.setMnemonic(KeyEvent.VK_H);
 		menuAyuda.getAccessibleContext().setAccessibleDescription("Menu para obtener ayuda sobre el uso del sistema");
-		menuBar.add(menuAyuda);
+		menuBar.add(menuAyuda);//lo agrega al menu
 		
-		JMenuItem manualItem = new JMenuItem("Manual de usuario",KeyEvent.VK_U);
+		JMenuItem manualItem = new JMenuItem("Manual de usuario",KeyEvent.VK_U); //crea un JMenuItem
 		manualItem.getAccessibleContext().setAccessibleDescription( "Presione para abrir el manual de usuario");
-		menuAyuda.add(manualItem);
-		manualItem.addActionListener(new ActionListener(){
+		menuAyuda.add(manualItem);//lo agrega al menu
+		manualItem.addActionListener(new ActionListener(){//agrega un listener para escuchar los clicks
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {//metodo para escuchar clicks
 				//TODO Abrir pdf
 				
 			    try {
-			    	File path = new File (RUTA_MANUAL_DE_USUARIO);
+			    	File path = new File (RUTA_MANUAL_DE_USUARIO); //Abre el archivo
 					Desktop.getDesktop().open(path);
 				} catch (IOException e1) {
 					HandleResponseUtil.showMessageError("Error al Manual de usuario");
@@ -128,9 +128,9 @@ public class MainView extends JFrame {
 	}
 
 	private void cerrarSesion() {
-		LoginView lw = new LoginView();
-		LoginService.logout();
-		lw.setVisible(true);
-		dispose();
+		LoginView lw = new LoginView(); //crea un LoginVIew
+		LoginService.logout(); //se deslogea
+		lw.setVisible(true); //muestra el LoginView
+		dispose(); //cierra la pantalla
 	}
 }
