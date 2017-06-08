@@ -6,7 +6,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,27 +57,27 @@ public class LogUtils {
 	}
 	
 	public static List<List<String>>darDatosLog(ETipoAccion accion) throws Exception{
-		List<List<String>> informe = new ArrayList<List<String>>();
-		FileReader fr = new FileReader(new File(ARCHIVO_LOG)); 
-		BufferedReader br = new BufferedReader(fr); 				
-		String line;
-		String accionDelArchivo;
+		List<List<String>> informe = new ArrayList<List<String>>(); //crea la lista de listas de string
+		FileReader fr = new FileReader(new File(ARCHIVO_LOG));  //recupera el archivo de log
+		BufferedReader br = new BufferedReader(fr); 	//crea el lector del archivo			
+		String line;	//declaracion de string
+		String accionDelArchivo; //declaracion de string
 
 		while ((line = br.readLine()) != null) { 
-			int index = line.indexOf(";");
-			String parte1 = line.substring(index+1);
-			List<String> datos = new ArrayList<String>();
-			accionDelArchivo = parte1.substring(0,parte1.indexOf(";")); 
-			if(accionDelArchivo.equalsIgnoreCase(accion.getTextToLog())){
-				String parteDatos = parte1.substring(parte1.indexOf(";")+1);
-				String[]split = parteDatos.split(":");
-				for(String d: split){
-					datos.add(d);
+			int index = line.indexOf(";");  //recupera el indice donde aparece ;
+			String parte1 = line.substring(index+1);   //obtiene la subcadena desde el caracter 0 y el indice.
+			List<String> datos = new ArrayList<String>(); //crea una lista de datos
+			accionDelArchivo = parte1.substring(0,parte1.indexOf(";"));  //crea una subcadena desde cero hasta el indice ; 
+			if(accionDelArchivo.equalsIgnoreCase(accion.getTextToLog())){ //pregunta si la accion del archivo es la misma del log
+				String parteDatos = parte1.substring(parte1.indexOf(";")+1); //crea otra subcadena
+				String[]split = parteDatos.split(":"); //la separa por :
+				for(String d: split){ //recorre el vector de string
+					datos.add(d); //agrega el dato
 				}
-				informe.add(datos);
+				informe.add(datos); //agrega los datos al informe
 			}
 		}
-		br.close();
-		return informe;
+		br.close(); //cierra el archivo
+		return informe; //retorna el informe 
 	}
 }

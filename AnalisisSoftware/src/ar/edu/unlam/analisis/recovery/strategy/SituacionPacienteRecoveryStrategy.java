@@ -12,9 +12,9 @@ public class SituacionPacienteRecoveryStrategy implements IRecoveryStrategy{
 
 	@Override
 	public void recovery() throws Exception {
-		List<List<String>> datosLog = LogUtils.darDatosLog(ETipoAccion.ALTA_SITUACION_PACIENTE);
-		for(List<String> datos : datosLog){
-			controlpac.nuevaSituacionPaciente(datos.get(0), datos.get(1), Encryptor.decode(datos.get(2)), false);
+		List<List<String>> datosLog = LogUtils.darDatosLog(ETipoAccion.ALTA_SITUACION_PACIENTE);  //recupera los datos del log
+		for(List<String> datos : datosLog){ //recorre cada dato del log
+			controlpac.nuevaSituacionPaciente(datos.get(0), datos.get(1), Encryptor.decode(datos.get(2)), false); //recupera los datos desde el log
 		}
 	}
 

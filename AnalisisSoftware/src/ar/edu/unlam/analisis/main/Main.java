@@ -11,9 +11,9 @@ public class Main {
 	
 	public static void main(String args[]) throws Exception {
 		Recovery r = new Recovery();
-		r.recovery(new MedicoRecoveryStrategy(), controlpac.ARCHIVO_DATOS_MEDICO);
-		r.recovery(new PacienteRecoveryStrategy(), controlpac.ARCHIVO_DATOS_PACIENTE);
-		r.recovery(new SituacionPacienteRecoveryStrategy(), controlpac.ARCHIVO_SITUACION_PACIENTE);
+		r.recovery(new MedicoRecoveryStrategy(), controlpac.ARCHIVO_DATOS_MEDICO); //Recupera el archivo de datos de medicos
+		r.recovery(new PacienteRecoveryStrategy(), controlpac.ARCHIVO_DATOS_PACIENTE); //Recupera el archivo de datos de pacientes
+		r.recovery(new SituacionPacienteRecoveryStrategy(), controlpac.ARCHIVO_SITUACION_PACIENTE); //Recupera el archivo de situaciones de pacientes
 		LoginView lw = new LoginView(); //Crea la vista de login
 		lw.setVisible(true); //muestra la vista de login
 	}

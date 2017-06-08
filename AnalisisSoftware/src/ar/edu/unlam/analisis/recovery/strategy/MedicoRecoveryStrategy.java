@@ -12,9 +12,9 @@ public class MedicoRecoveryStrategy implements IRecoveryStrategy{
 
 	@Override
 	public void recovery() throws Exception {
-		List<List<String>> datosLog = LogUtils.darDatosLog(ETipoAccion.ALTA_MEDICO);
-		for(List<String> datos : datosLog){
-			controlpac.nuevoMedico(datos.get(0), datos.get(1), datos.get(2), false);
+		List<List<String>> datosLog = LogUtils.darDatosLog(ETipoAccion.ALTA_MEDICO); //recupera los datos del log
+		for(List<String> datos : datosLog){ //recorre cada dato del log
+			controlpac.nuevoMedico(datos.get(0), datos.get(1), datos.get(2), false); //recupera los datos desde el log
 		}
 	}
 
