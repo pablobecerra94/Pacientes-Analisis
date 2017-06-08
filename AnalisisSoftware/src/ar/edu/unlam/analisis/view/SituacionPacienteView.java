@@ -97,7 +97,7 @@ public class SituacionPacienteView extends JFrame{
 				dispose();//cierra la pantalla de ingreso de datos del medico
 			}
 		});
-		getContentPane().setLayout(null); //setea un Layout nulo
+		getContentPane().setLayout(null); //setea un layout absoluto
 		getContentPane().add(lblSituacionDelPaciente);//agrega el label a la ventana
 		getContentPane().add(lblCodigoPaciente);//agrega el label a la ventana
 		getContentPane().add(lblCodigoMedico);//agrega el label a la ventana
