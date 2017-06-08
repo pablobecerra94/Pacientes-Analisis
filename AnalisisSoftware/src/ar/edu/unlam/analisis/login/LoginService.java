@@ -39,7 +39,7 @@ public class LoginService {
 	public static String login(String usr, String password) throws Exception { 
 		String errors = ""; //String auxiliar para indicar errores
 		String pswArchivo = ""; //contrase�a del archivo
-		pswArchivo = darContraseñaUsuario(usr); //traigo la contrase�a del usuario 
+		pswArchivo = darContrasenaUsuario(usr); //traigo la contrase�a del usuario 
 		if (!pswArchivo.isEmpty()) {//si existe un usuario:
 			String encriptMD5 = Encryptor.applyMD5(password); // encriptamos con md5 
 			if (!encriptMD5.equals(pswArchivo)) //comparo la pass con la del archivo
@@ -66,7 +66,7 @@ public class LoginService {
 	public static String signin(String usr, String password) throws Exception {
 		String errors = "";//String auxiliar para indicar errores
 		String pswArchivo = ""; //contrase�a del archivo
-		pswArchivo = darContraseñaUsuario(usr);//traigo la contrase�a del usuario 
+		pswArchivo = darContrasenaUsuario(usr);//traigo la contrase�a del usuario 
 		if (pswArchivo.isEmpty()) { // Como la pasw esta vacia, el usuario NO existe					 
 			FileWriter fw = new FileWriter(new File(ARCHIVO_USUARIOS), true);    //gracias a estas
 			BufferedWriter bw = new BufferedWriter(fw);							// clases podemos 
@@ -83,7 +83,7 @@ public class LoginService {
 		return errors; // si todo esta OK devolvera un string vacio
 	}
 
-	private static String darContraseñaUsuario(String usr) throws Exception {
+	private static String darContrasenaUsuario(String usr) throws Exception {
 		String usrArchivo = "", pswArchivo = ""; //String auxiliares para el usuario y contrase�a
 		try {
 			FileReader fr = new FileReader(new File(ARCHIVO_USUARIOS)); // Con estas clases puedo

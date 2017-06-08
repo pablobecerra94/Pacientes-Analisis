@@ -14,8 +14,8 @@ public class Main {
 		r.recovery(new MedicoRecoveryStrategy(), controlpac.ARCHIVO_DATOS_MEDICO);
 		r.recovery(new PacienteRecoveryStrategy(), controlpac.ARCHIVO_DATOS_PACIENTE);
 		r.recovery(new SituacionPacienteRecoveryStrategy(), controlpac.ARCHIVO_SITUACION_PACIENTE);
-		LoginView lw = new LoginView();
-		lw.setVisible(true);
+		LoginView lw = new LoginView(); //Crea la vista de login
+		lw.setVisible(true); //muestra la vista de login
 	}
 
 }

@@ -31,30 +31,30 @@ public class LogUtils {
 	public static void log(String archDestino,ETipoAccion accion, String... data)throws Exception{
 		//Del threadLocal levantamos el usuario
 		String usrLogueado = UserProvider.getUsuarioLogueado();
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder(); //se crea un builder de strings
 		
 		//Sin usuario no podemos loguear
 		if(usrLogueado == null){
-			throw new Exception("No hay usuario logueado");
+			throw new Exception("No hay usuario logueado"); //lanza la excepcion de usuario no logueado
 		}
 		
 		//No se enviaron datos para loguear
 		if(data.length == 0){
-			throw new Exception("No hay datos que loguear");
+			throw new Exception("No hay datos que loguear"); //lanza la excepcion de datos sin loguear 
 		}
 		
-		sb.append(usrLogueado).append(":").append(archDestino).append(";").append(accion.getTextToLog()).append(";");
+		sb.append(usrLogueado).append(":").append(archDestino).append(";").append(accion.getTextToLog()).append(";"); //agrega todos los datos
 		
 		for(String o : data){
-			sb.append(o).append(":");
+			sb.append(o).append(":"); //agrega...
 		}
 		
 		
-		FileWriter fw = new FileWriter(new File(ARCHIVO_LOG),true);
-		BufferedWriter bw = new BufferedWriter(fw);
-		PrintWriter pw = new PrintWriter(bw);
+		FileWriter fw = new FileWriter(new File(ARCHIVO_LOG),true); //crea el escritor archivo a partir del path
+		BufferedWriter bw = new BufferedWriter(fw); //crea un escritor de buffer
+		PrintWriter pw = new PrintWriter(bw); //crea un escritor de lineas de archivo
 		pw.println(sb.toString().substring(0,sb.toString().length()-1));//usr:contraseña
-		pw.close();
+		pw.close(); //cierra el escritor
 	}
 	
 	public static List<List<String>>darDatosLog(ETipoAccion accion) throws Exception{
