@@ -10,7 +10,7 @@ import ar.edu.unlam.analisis.util.LogUtils;
 
 public class SituacionPacienteRecoveryStrategy implements IRecoveryStrategy{
 
-	@Override
+	@Override//
 	public void recovery() throws Exception {
 		List<List<String>> datosLog = LogUtils.darDatosLog(ETipoAccion.ALTA_SITUACION_PACIENTE);  //recupera los datos del log
 		for(List<String> datos : datosLog){ //recorre cada dato del log
