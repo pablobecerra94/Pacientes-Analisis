@@ -75,7 +75,7 @@ public class SituacionPacienteView extends JFrame{
 				
 				if(errors.toString().isEmpty()){
 					try {
-						controlpac.nuevaSituacionPaciente(textFieldCodigoPaciente.getText(), textFieldCodigoMedico.getText(), textAreaDiagnostico.getText());
+						controlpac.nuevaSituacionPaciente(textFieldCodigoPaciente.getText(), textFieldCodigoMedico.getText(), textAreaDiagnostico.getText(),true);
 						limpiar();
 						HandleResponseUtil.showMessageSuccess(HandleResponseUtil.COMMON_SUCCESS);
 					} catch (Exception e1) {

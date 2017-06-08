@@ -81,7 +81,7 @@ public class DatosMedicoView extends JFrame{
 				
 				if(errors.toString().isEmpty()){
 					try {
-						controlpac.nuevoMedico(textCodigo.getText(), textNombre.getText(), textEspecializacion.getText());
+						controlpac.nuevoMedico(textCodigo.getText(), textNombre.getText(), textEspecializacion.getText(),true);
 						HandleResponseUtil.showMessageSuccess(HandleResponseUtil.COMMON_SUCCESS);
 						limpiar();
 					} catch (Exception e1) {

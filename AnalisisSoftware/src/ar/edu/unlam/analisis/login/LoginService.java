@@ -38,14 +38,14 @@ public class LoginService {
 
 	public static String login(String usr, String password) throws Exception { 
 		String errors = ""; //String auxiliar para indicar errores
-		String pswArchivo = ""; //contraseña del archivo
-		pswArchivo = darContraseñaUsuario(usr); //traigo la contraseña del usuario 
+		String pswArchivo = ""; //contraseï¿½a del archivo
+		pswArchivo = darContraseÃ±aUsuario(usr); //traigo la contraseï¿½a del usuario 
 		if (!pswArchivo.isEmpty()) {//si existe un usuario:
 			String encriptMD5 = Encryptor.applyMD5(password); // encriptamos con md5 
 			if (!encriptMD5.equals(pswArchivo)) //comparo la pass con la del archivo
-				errors = "La contraseÃ±a es incorrecta"; // no coincide la contraseña			 
+				errors = "La contraseÃ±a es incorrecta"; // no coincide la contraseï¿½a			 
 			 else 
-				UserProvider.setuUser(usr); //coincide la contraseña
+				UserProvider.setuUser(usr); //coincide la contraseï¿½a
 		} else 
 			errors = "El usuario no se encuentra registrado"; // no existe el usuario
 		return errors;// si todo esta OK devolvera un string vacio
@@ -65,8 +65,8 @@ public class LoginService {
 	 */
 	public static String signin(String usr, String password) throws Exception {
 		String errors = "";//String auxiliar para indicar errores
-		String pswArchivo = ""; //contraseña del archivo
-		pswArchivo = darContraseñaUsuario(usr);//traigo la contraseña del usuario 
+		String pswArchivo = ""; //contraseï¿½a del archivo
+		pswArchivo = darContraseÃ±aUsuario(usr);//traigo la contraseï¿½a del usuario 
 		if (pswArchivo.isEmpty()) { // Como la pasw esta vacia, el usuario NO existe					 
 			FileWriter fw = new FileWriter(new File(ARCHIVO_USUARIOS), true);    //gracias a estas
 			BufferedWriter bw = new BufferedWriter(fw);							// clases podemos 
@@ -83,8 +83,8 @@ public class LoginService {
 		return errors; // si todo esta OK devolvera un string vacio
 	}
 
-	private static String darContraseñaUsuario(String usr) throws Exception {
-		String usrArchivo = "", pswArchivo = ""; //String auxiliares para el usuario y contraseña
+	private static String darContraseÃ±aUsuario(String usr) throws Exception {
+		String usrArchivo = "", pswArchivo = ""; //String auxiliares para el usuario y contraseï¿½a
 		try {
 			FileReader fr = new FileReader(new File(ARCHIVO_USUARIOS)); // Con estas clases puedo
 			BufferedReader br = new BufferedReader(fr); 				// leer el archivo de usuarios
@@ -93,18 +93,18 @@ public class LoginService {
 			while ((line = br.readLine()) != null) { //para leer hasta el final del archivo
 				int index = line.indexOf(":"); // Me posiciono en la parte de la linea con ":"
 				usrArchivo = line.substring(0, index); //Obtengo el usuario	del archivo
-				pswArchivo = line.substring(index + 1, line.length()); //Obtengo la contraseña del archivo
+				pswArchivo = line.substring(index + 1, line.length()); //Obtengo la contraseï¿½a del archivo
 				if (usr.equals(usrArchivo)) // compara a ver si coincide con el
 				{							// nombre de usuario del archivo
 					br.close(); //Cierro el BufferedReader
-					return pswArchivo; //Devuelvo la contraseña
+					return pswArchivo; //Devuelvo la contraseï¿½a
 				}
 			}
 			br.close();//Cierro el BufferedReader
 		} catch (IOException ioe) { //Posible excepcion de no poder leer el archivo
 		}
 
-		return ""; // El archivo esta vacio o no se encontro la contraseña
+		return ""; // El archivo esta vacio o no se encontro la contraseï¿½a
 	}
 
 }

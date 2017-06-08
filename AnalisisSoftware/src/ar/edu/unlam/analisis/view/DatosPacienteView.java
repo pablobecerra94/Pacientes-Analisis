@@ -36,7 +36,7 @@ public class DatosPacienteView extends JFrame {
 				
 				if(errors.toString().isEmpty()){
 					try {
-						controlpac.nuevoPaciente(textFieldCodigo.getText(), textFieldNombre.getText());
+						controlpac.nuevoPaciente(textFieldCodigo.getText(), textFieldNombre.getText(),true);
 						limpiar();
 						HandleResponseUtil.showMessageSuccess(HandleResponseUtil.COMMON_SUCCESS);
 					} catch (Exception e1) {

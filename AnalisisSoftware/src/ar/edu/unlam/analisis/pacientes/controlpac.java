@@ -2,7 +2,6 @@ package ar.edu.unlam.analisis.pacientes;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -12,15 +11,16 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import ar.edu.unlam.analisis.enums.ETipoAccion;
 import ar.edu.unlam.analisis.enums.ETipoInforme;
 import ar.edu.unlam.analisis.util.Encryptor;
-import ar.edu.unlam.analisis.util.FileUtils;
+import ar.edu.unlam.analisis.util.LogUtils;
 
 public class controlpac {
 
-	private static final String ARCHIVO_DATOS_MEDICO = "src//resources//datomed.pac";
-	private static final String ARCHIVO_SITUACION_PACIENTE = "src//resources//situpac.txt";
-	private static final String ARCHIVO_DATOS_PACIENTE = "src//resources//datopac.txt";
+	public static final String ARCHIVO_DATOS_MEDICO = "src//resources//datomed.pac";
+	public static final String ARCHIVO_SITUACION_PACIENTE = "src//resources//situpac.txt";
+	public static final String ARCHIVO_DATOS_PACIENTE = "src//resources//datopac.txt";
 
 	@SuppressWarnings("unused")
 	public static Collection<String> getInformeMedico(String codmed, ETipoInforme tipoInforme) throws Exception {
@@ -137,17 +137,20 @@ public class controlpac {
 
 	}
 
-	public static void nuevoMedico(String codmed, String nombre, String especializacion) throws Exception {
+	public static void nuevoMedico(String codmed, String nombre, String especializacion, boolean doLog) throws Exception {
 
 		FileWriter fw = new FileWriter(new File(ARCHIVO_DATOS_MEDICO), true);
 		BufferedWriter bw = new BufferedWriter(fw);
 		PrintWriter pw = new PrintWriter(bw);
 		pw.println(codmed + ":" + nombre + "|" + especializacion);
+		if(doLog){
+			LogUtils.log(ARCHIVO_DATOS_MEDICO, ETipoAccion.ALTA_MEDICO,codmed,nombre,especializacion);
+		}
 		pw.close();
 
 	}
 
-	public static void nuevaSituacionPaciente(String codpac, String codmed, String diagnostico) throws Exception {
+	public static void nuevaSituacionPaciente(String codpac, String codmed, String diagnostico, boolean doLog) throws Exception {
 		/*
 		 * DataOutputStream situpac = null; situpac = new DataOutputStream(new
 		 * FileOutputStream(ARCHIVO_SITUACION_PACIENTE, true)); try {
@@ -165,16 +168,22 @@ public class controlpac {
 		BufferedWriter bw = new BufferedWriter(fw);
 		PrintWriter pw = new PrintWriter(bw);
 		pw.println(codpac + ":" + codmed + "|" + Encryptor.encode(diagnostico));
+		if(doLog){
+			LogUtils.log(ARCHIVO_SITUACION_PACIENTE, ETipoAccion.ALTA_SITUACION_PACIENTE, codpac,codmed,Encryptor.encode(diagnostico));
+		}
 		pw.close();
 
 	}
 
-	public static void nuevoPaciente(String codpac, String nompac) throws Exception {
+	public static void nuevoPaciente(String codpac, String nompac, boolean doLog) throws Exception {
 
 		FileWriter fw = new FileWriter(new File(ARCHIVO_DATOS_PACIENTE), true);
 		BufferedWriter bw = new BufferedWriter(fw);
 		PrintWriter pw = new PrintWriter(bw);
 		pw.println(codpac + ":" + nompac);
+		if(doLog){
+			LogUtils.log(ARCHIVO_DATOS_PACIENTE, ETipoAccion.ALTA_PACIENTE, codpac,nompac);
+		}
 		pw.close();
 
 	}
