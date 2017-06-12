@@ -40,10 +40,10 @@ public class controlpac {
 				if (codm.equals(codmed))	 // compara el codigo extraido de la
 											// tabla "datomed" con el codigo
 					{						// digitado
-					if (tipoInforme.equals(ETipoInforme.ESPECIALIDADES)) { //Se pide el informe de especialidades
+					if (ETipoInforme.ESPECIALIDADES.equals(tipoInforme)) { //Se pide el informe de especialidades
 						colReturn = darEspecialidadesMedico(nomm, codmed); //Cargo a la coleccion con las especialidades
 					}
-					if (tipoInforme.equals(ETipoInforme.PACIENTES)) {  //Se pide el informe de pacientes
+					if (ETipoInforme.PACIENTES.equals(tipoInforme)) {  //Se pide el informe de pacientes
 						colReturn = darPacientesAtendidosPorMedico(nomm, codmed); //Cargo a la coleccion con los pacientes
 					}
 				}

@@ -14,59 +14,60 @@ import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class InformesView extends JFrame{
+	
 	public InformesView() {
-		getContentPane().setLayout(null);
-		setSize(new Dimension(500, 500));
-		setLocationRelativeTo(null);
-		JLabel lblControlDePacientes = new JLabel("Control de Pacientes");
-		lblControlDePacientes.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblControlDePacientes.setBounds(132, 17, 185, 16);
-		getContentPane().add(lblControlDePacientes);
+		getContentPane().setLayout(null); //setea layout absoluto
+		setSize(new Dimension(500, 500)); //setea dimensiones
+		setLocationRelativeTo(null); //relativo a nada
+		JLabel lblControlDePacientes = new JLabel("Control de Pacientes"); //crea label
+		lblControlDePacientes.setFont(new Font("Lucida Grande", Font.PLAIN, 16)); //setea fuente
+		lblControlDePacientes.setBounds(132, 17, 185, 16); //setea dimensiones
+		getContentPane().add(lblControlDePacientes); //agrega label a ventana
 		
-		JLabel lblInformes = new JLabel("Informes");
-		lblInformes.setBounds(186, 45, 61, 16);
-		getContentPane().add(lblInformes);
+		JLabel lblInformes = new JLabel("Informes"); //crea label
+		lblInformes.setBounds(186, 45, 61, 16); //setea dimensiones
+		getContentPane().add(lblInformes); //agrega label a la ventana
 		
-		JButton btnListadoDePacientes = new JButton("Listado de Pacientes Por Medico");
-		btnListadoDePacientes.setToolTipText("Presione este boton para obtener los pacientes que son atendidos por un médico ingresado");
-		btnListadoDePacientes.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				PacientesPorMedicoView ppmw = new PacientesPorMedicoView();
-				ppmw.setVisible(true);
-				dispose();
+		JButton btnListadoDePacientes = new JButton("Listado de Pacientes Por Medico"); //crea boton
+		btnListadoDePacientes.setToolTipText("Presione este boton para obtener los pacientes que son atendidos por un médico ingresado"); //setea tooltip
+		btnListadoDePacientes.addActionListener(new ActionListener() { //listener para clicks
+			public void actionPerformed(ActionEvent e) { //metodo para clicks
+				PacientesPorMedicoView ppmw = new PacientesPorMedicoView(); //crea vista para ver pacientes por medico
+				ppmw.setVisible(true); //muestra la vista
+				dispose(); //Cierra la actual
 			}
 		});
-		btnListadoDePacientes.setBounds(71, 86, 300, 29);
-		getContentPane().add(btnListadoDePacientes);
+		btnListadoDePacientes.setBounds(71, 86, 300, 29); //setea dimensiones
+		getContentPane().add(btnListadoDePacientes); //agrega boton a ventana
 		
-		JButton btnEnfrermedadesQueAtiende = new JButton("Enfermedades que atiende cada Medico");
-		btnEnfrermedadesQueAtiende.setToolTipText("Presione este boton para obtener las enfermedades tratadas por un médico ingresado");
-		btnEnfrermedadesQueAtiende.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				EnfermedadesMedicoView emw = new EnfermedadesMedicoView();
-				emw.setVisible(true);
-				dispose();
+		JButton btnEnfrermedadesQueAtiende = new JButton("Enfermedades que atiende cada Medico"); //crea boton
+		btnEnfrermedadesQueAtiende.setToolTipText("Presione este boton para obtener las enfermedades tratadas por un médico ingresado"); //setea tooltip
+		btnEnfrermedadesQueAtiende.addActionListener(new ActionListener() { //listener para clicks
+			public void actionPerformed(ActionEvent e) { //metodo para clicks
+				EnfermedadesMedicoView emw = new EnfermedadesMedicoView(); //crea vista para ver enfermedades por medico
+				emw.setVisible(true); ///muestra la vista
+				dispose();  //cierra ventana actual
 			}
 		});
-		btnEnfrermedadesQueAtiende.setBounds(71, 127, 300, 29);
-		getContentPane().add(btnEnfrermedadesQueAtiende);
+		btnEnfrermedadesQueAtiende.setBounds(71, 127, 300, 29);  //setea dimensiones
+		getContentPane().add(btnEnfrermedadesQueAtiende); //agrega boton a ventana
 		
-		JButton btnVolver = new JButton("Volver");
-		btnVolver.setToolTipText("Presione este botón para volver al menú anterior");
+		JButton btnVolver = new JButton("Volver"); //crea boton
+		btnVolver.setToolTipText("Presione este botón para volver al menú anterior"); //setea tooltip
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MainView mw = new MainView();
-				mw.setVisible(true);
-				dispose();
+				MainView mw = new MainView(); //crea vista para menu principal
+				mw.setVisible(true); //muestra la vista
+				dispose(); //cierra ventana actual
 			}
 		});
-		btnVolver.setBounds(327, 243, 117, 29);
-		getContentPane().add(btnVolver);
+		btnVolver.setBounds(327, 243, 117, 29); //setea dimensiones
+		getContentPane().add(btnVolver); //agrega boton a ventana
 		
-		JLabel label = new JLabel("Usuario: "+UserProvider.getUsuarioLogueado());
-		label.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
-		label.setBounds(6, 17, 90 + label.getText().length(), 16);
-		getContentPane().add(label);
+		JLabel label = new JLabel("Usuario: "+UserProvider.getUsuarioLogueado()); //crea label
+		label.setFont(new Font("Lucida Grande", Font.PLAIN, 10)); //setea la fuente
+		label.setBounds(6, 17, 90 + label.getText().length(), 16); //setea dimensiones
+		getContentPane().add(label); //agrega label
 	}
 
 }
