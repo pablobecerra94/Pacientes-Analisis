@@ -73,7 +73,7 @@ public class SituacionPacienteView extends JFrame{
 				}
 				
 			////VALIDACIONES DE CAJA NEGRA.
-				errors.append(TextValidator.validarTexto(textAreaDiagnostico.getText(),50,"el diagnostico"));
+				errors.append(TextValidator.validarTexto(textAreaDiagnostico.getText(),50,"diagnostico"));
 				
 				if(errors.toString().isEmpty()){ //Si no hay errores:
 					try {
@@ -115,22 +115,22 @@ public class SituacionPacienteView extends JFrame{
 		getContentPane().add(label);//agrega el label a la ventana
 		
 		try {
-			comboPacientes = ComboWrapper.getCombo(controlpac.getTodosLosPacientes());
-		} catch (IOException e1) {
-			comboPacientes = ComboWrapper.getComboVacio();
+			comboPacientes = ComboWrapper.getCombo(controlpac.getTodosLosPacientes()); //agrega los pacientes al combo
+		} catch (IOException e1) { //
+			comboPacientes = ComboWrapper.getComboVacio(); // combo vacio
 		}
 		
-		comboPacientes.setBounds(152, 52, 156, 27);
-		getContentPane().add(comboPacientes);
+		comboPacientes.setBounds(152, 52, 156, 27); //medidas
+		getContentPane().add(comboPacientes); //agregado de combo
 		
 		try {
-			comboMedicos = ComboWrapper.getCombo(controlpac.getTodosLosMedicos());
-		} catch (IOException e1) {
-			comboMedicos = ComboWrapper.getComboVacio();
+			comboMedicos = ComboWrapper.getCombo(controlpac.getTodosLosMedicos()); //agrega los pacientes al combo
+		} catch (IOException e1) { //
+			comboMedicos = ComboWrapper.getComboVacio(); // combo vacio
 		}
 		
-		comboMedicos.setBounds(149, 94, 159, 27);
-		getContentPane().add(comboMedicos);
+		comboMedicos.setBounds(149, 94, 159, 27);  //medidas
+		getContentPane().add(comboMedicos);  //agregado de combo
 	}
 	
 	public void limpiar(){ //metodo para limpiar la pantalla
