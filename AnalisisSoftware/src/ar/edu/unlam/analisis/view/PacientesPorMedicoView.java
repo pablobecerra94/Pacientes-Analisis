@@ -4,26 +4,34 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import ar.edu.unlam.analisis.combo.ComboItem;
 import ar.edu.unlam.analisis.enums.ETipoInforme;
 import ar.edu.unlam.analisis.login.UserProvider;
 import ar.edu.unlam.analisis.pacientes.controlpac;
 import ar.edu.unlam.analisis.util.HandleResponseUtil;
+import ar.edu.unlam.analisis.wrapper.ComboWrapper;
 
 @SuppressWarnings("serial")
 public class PacientesPorMedicoView extends JFrame{
-	private JTextField textFieldCodigoMedico;
 	private JList<String> listPacientes;
 	private JScrollPane scrollPanePacientes;
+	private JComboBox<ComboItem> comboMedicos;
 	public PacientesPorMedicoView() {
 		getContentPane().setLayout(null);//setea un layout absoluto
 		setSize(new Dimension(500, 500));//setea la dimension de la ventana
@@ -46,13 +54,14 @@ public class PacientesPorMedicoView extends JFrame{
 			@SuppressWarnings({ "unchecked", "rawtypes" }) //
 			public void actionPerformed(ActionEvent e) {//metodo para escuchar clicks
 				
-				if(textFieldCodigoMedico.getText().isEmpty()){ //si el textfield esta vacio:
-					HandleResponseUtil.showMessageError("El codigo del médico es necesario"); //muestra mensaje de error
+				if(!ComboWrapper.isSeleccionado(((ComboItem)comboMedicos.getSelectedItem()).getKey())){ //si el combo fue seleccionado
+					HandleResponseUtil.showMessageError("El médico es necesario"); //muestra mensaje de error
 					return; //termina
 				}
 				
 				try {
-					Collection<String> col = controlpac.getInformeMedico(textFieldCodigoMedico.getText(), ETipoInforme.PACIENTES);
+					String selected = ComboWrapper.getSelectedKey(comboMedicos);
+					Collection<String> col = controlpac.getInformeMedico(selected, ETipoInforme.PACIENTES);
 					DefaultListModel listModel = new DefaultListModel(); //crea un defaultListModel
 					for(String s: col){ //for each
 						listModel.addElement(s);
@@ -73,19 +82,15 @@ public class PacientesPorMedicoView extends JFrame{
 		btnLimpiar.setToolTipText("Presione este botón para vaciar los campos");//crea el tooltip text
 		btnLimpiar.addActionListener(new ActionListener() {//crea listener para escuchar clicks
 			public void actionPerformed(ActionEvent e) {//metodo para escuchar clicks
-				textFieldCodigoMedico.setText(""); //setea al textfield como vacio
+				comboMedicos.setSelectedIndex(0);
+				
 				DefaultListModel listModel = new DefaultListModel(); //crea un DefaultListModel
 				listPacientes.setModel(listModel);
 				scrollPanePacientes.setViewportView(listPacientes);
 			}
 		});
 		btnLimpiar.setBounds(383, 49, 117, 29); //setea las medidas del boton
-		getContentPane().add(btnLimpiar); //lo agrega a la pantalla
-		
-		textFieldCodigoMedico = new JTextField(); //crea un textfield
-		textFieldCodigoMedico.setBounds(127, 49, 130, 26); //setea las medidas del textfield
-		getContentPane().add(textFieldCodigoMedico); //lo agrega a la pantalla
-		textFieldCodigoMedico.setColumns(10); //setea 10 columnas al textfield
+		getContentPane().add(btnLimpiar);
 		
 		JLabel lblCodigoMedico = new JLabel("Codigo Medico:"); //crea un label
 		lblCodigoMedico.setBounds(6, 54, 125, 16); //setea las medidas del label
@@ -106,5 +111,17 @@ public class PacientesPorMedicoView extends JFrame{
 		label.setFont(new Font("Lucida Grande", Font.PLAIN, 10));//setea la fuente del label
 		label.setBounds(6, 17, 90 + label.getText().length(), 16);//setea las medias del label
 		getContentPane().add(label);//lo agrega a la pantalla
+		
+		comboMedicos = new JComboBox<ComboItem>();
+		try {
+			comboMedicos = ComboWrapper.getCombo(controlpac.getTodosLosMedicos());
+		} catch (IOException e1) {
+			comboMedicos = ComboWrapper.getComboVacio();
+		}finally{
+		comboMedicos.setBounds(116, 50, 157, 27);
+		getContentPane().add(comboMedicos);
+		}
 	}
+	
+	
 }

@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import ar.edu.unlam.analisis.login.UserProvider;
 import ar.edu.unlam.analisis.pacientes.controlpac;
 import ar.edu.unlam.analisis.util.HandleResponseUtil;
+import ar.edu.unlam.analisis.validator.TextValidator;
 
 @SuppressWarnings("serial")
 public class DatosPacienteView extends JFrame {
@@ -34,6 +35,10 @@ public class DatosPacienteView extends JFrame {
 				if(textFieldNombre.getText().isEmpty()){ //si el nombre esta vacio
 					errors.append("*El nombre es necesario").append("\n"); //agrega el error
 				}
+				
+			////VALIDACIONES DE CAJA NEGRA.
+			errors.append(TextValidator.validarNumero(textFieldCodigo.getText(),"codigo de paciente"));
+			errors.append(TextValidator.validarTexto(textFieldNombre.getText(),50,"nombre del paciente"));
 				
 				if(errors.toString().isEmpty()){ //si la lista de errores esta vacia
 					try {

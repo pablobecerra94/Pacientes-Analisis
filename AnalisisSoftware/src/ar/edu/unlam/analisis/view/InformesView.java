@@ -68,6 +68,17 @@ public class InformesView extends JFrame{
 		label.setFont(new Font("Lucida Grande", Font.PLAIN, 10)); //setea la fuente
 		label.setBounds(6, 17, 90 + label.getText().length(), 16); //setea dimensiones
 		getContentPane().add(label); //agrega label
+		
+		JButton btnListadoDePacientes_1 = new JButton("Listado de Pacientes y Medicos");
+		btnListadoDePacientes_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListadoView lw = new ListadoView();
+				lw.setVisible(true);
+				dispose();
+			}
+		});
+		btnListadoDePacientes_1.setBounds(71, 168, 300, 29);
+		getContentPane().add(btnListadoDePacientes_1);
 	}
 
 }

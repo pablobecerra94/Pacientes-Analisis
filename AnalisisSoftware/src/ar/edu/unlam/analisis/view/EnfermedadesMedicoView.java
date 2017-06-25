@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Collection;
 
 import javax.swing.DefaultListModel;
@@ -14,17 +15,20 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import ar.edu.unlam.analisis.combo.ComboItem;
 import ar.edu.unlam.analisis.enums.ETipoInforme;
 import ar.edu.unlam.analisis.login.UserProvider;
 import ar.edu.unlam.analisis.pacientes.controlpac;
 import ar.edu.unlam.analisis.util.HandleResponseUtil;
+import ar.edu.unlam.analisis.wrapper.ComboWrapper;
+
+import javax.swing.JComboBox;
 
 @SuppressWarnings("serial")
 public class EnfermedadesMedicoView extends JFrame{
-	private JTextField textFieldCodMedico;
 	private JList<String> listEspecialidades;
 	private JScrollPane scrollPaneEspecialidades;
-	
+	private JComboBox<ComboItem> comboMedicos;
 	public EnfermedadesMedicoView() {
 		getContentPane().setLayout(null); //setea el layout absoluto
 		setSize(new Dimension(500, 500)); //setea las dimensiones
@@ -43,25 +47,21 @@ public class EnfermedadesMedicoView extends JFrame{
 		
 		JLabel lblCodigoMedico = new JLabel("Codigo Medico:"); //crea el label
 		lblCodigoMedico.setBounds(1, 65, 105, 16); ///setea las dimensiones
-		getContentPane().add(lblCodigoMedico); //agrega el label a la ventana
-		
-		textFieldCodMedico = new JTextField(); //crea el campo para codigo de medico
-		textFieldCodMedico.setBounds(118, 60, 130, 26); //setea las dimensiones
-		getContentPane().add(textFieldCodMedico); //agrega el campo a la ventana
-		textFieldCodMedico.setColumns(10); //setea las columnas 
+		getContentPane().add(lblCodigoMedico);
 		
 		JButton btnBuscar = new JButton("Buscar"); //crea el boton buscar
 		btnBuscar.setToolTipText("Presione este boton para ver las enfermedades tratadas por el medico ingresado"); //setea el tooltip
 		btnBuscar.addActionListener(new ActionListener() { //crea el listener para clicks
 			public void actionPerformed(ActionEvent e) { //metodo para clicks
 				
-				if(textFieldCodMedico.getText().isEmpty()){ //si el campo esta vacio
-					HandleResponseUtil.showMessageError("El codigo del médico es necesario"); //muestra el error
-					return; //corta la ejecucion del metodo
+				if(!ComboWrapper.isSeleccionado(((ComboItem)comboMedicos.getSelectedItem()).getKey())){ //si el combo fue seleccionado
+					HandleResponseUtil.showMessageError("El médico es necesario"); //muestra mensaje de error
+					return; //termina
 				}
 				
 				try {
-					Collection<String> col = controlpac.getInformeMedico(textFieldCodMedico.getText(), ETipoInforme.ESPECIALIDADES); //crea una coleccion de los informes de los medicos
+					String selected = ComboWrapper.getSelectedKey(comboMedicos);
+					Collection<String> col = controlpac.getInformeMedico(selected, ETipoInforme.ESPECIALIDADES); //crea una coleccion de los informes de los medicos
 					DefaultListModel listModel = new DefaultListModel(); //crea un list model
 					for(String s: col){ //por cada informe
 						listModel.addElement(s); //lo agrega al list
@@ -81,7 +81,7 @@ public class EnfermedadesMedicoView extends JFrame{
 		btnLimpiar.setToolTipText("Presione este botón para vaciar los campos"); //setea el tooltip
 		btnLimpiar.addActionListener(new ActionListener() { //listener para escuchar clicks
 			public void actionPerformed(ActionEvent e) { //metodo para clicks
-				textFieldCodMedico.setText(""); //vacia el campo
+				comboMedicos.setSelectedIndex(0); //vacia el campo
 				DefaultListModel listModel = new DefaultListModel(); //crea un model vacio
 				listEspecialidades.setModel(listModel); //setea el model vacio
 				scrollPaneEspecialidades.setViewportView(listEspecialidades); //agrega scroll
@@ -105,5 +105,15 @@ public class EnfermedadesMedicoView extends JFrame{
 		label.setFont(new Font("Lucida Grande", Font.PLAIN, 10)); //setea fuente
 		label.setBounds(6, 17, 90 + label.getText().length(), 16); //setea dimensiones
 		getContentPane().add(label); //agrega label
+		
+		comboMedicos = new JComboBox<ComboItem>();
+		try {
+			comboMedicos = ComboWrapper.getCombo(controlpac.getTodosLosMedicos());
+		} catch (IOException e1) {
+			comboMedicos = ComboWrapper.getComboVacio();
+		}finally{
+		comboMedicos.setBounds(116, 61, 150, 27);
+		getContentPane().add(comboMedicos);
+		}
 	}
 }

@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import ar.edu.unlam.analisis.login.UserProvider;
 import ar.edu.unlam.analisis.pacientes.controlpac;
 import ar.edu.unlam.analisis.util.HandleResponseUtil;
+import ar.edu.unlam.analisis.validator.TextValidator;
 
 @SuppressWarnings("serial")
 public class SituacionPacienteView extends JFrame{
@@ -72,6 +73,11 @@ public class SituacionPacienteView extends JFrame{
 				if(textAreaDiagnostico.getText().isEmpty()){ //Si esta vacio el textarea de diagnostico
 					errors.append("*El diagnostico es necesario.").append("\n");//mensaje mostrado
 				}
+				
+			////VALIDACIONES DE CAJA NEGRA.
+				errors.append(TextValidator.validarNumero(textFieldCodigoMedico.getText(),"codigo de medico"));
+				errors.append(TextValidator.validarNumero(textFieldCodigoPaciente.getText(),"codigo de paciente"));
+				errors.append(TextValidator.validarTexto(textAreaDiagnostico.getText(),50,"el diagnostico"));
 				
 				if(errors.toString().isEmpty()){ //Si no hay errores:
 					try {

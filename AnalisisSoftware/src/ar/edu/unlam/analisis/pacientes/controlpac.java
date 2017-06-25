@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import ar.edu.unlam.analisis.enums.ETipoAccion;
 import ar.edu.unlam.analisis.enums.ETipoInforme;
@@ -166,5 +168,45 @@ public class controlpac {
 		}
 		pw.close();//Cierro el PrintWriter
 	}
+
+	public static Map<String, String> getTodosLosMedicos() throws IOException {
+		Map<String,String> map = new HashMap<String,String>();
+		FileReader fr = new FileReader(new File(ARCHIVO_DATOS_MEDICO)); //Con estas clases
+		BufferedReader br = new BufferedReader(fr);							  //puedo leer el archivo	
+		String line; //Aca voy a leer cada linea del archivo
+		String codmed,nommed;
+
+		while ((line = br.readLine()) != null) { //Leo hasta el final del archivo
+			int index = line.indexOf(":");//Me paro en ":"
+			codmed = line.substring(0, index); //Obtengo el codigo del medico
+			nommed = line.substring(index+1,line.indexOf("|"));//Obtengo el nombre del medico
+			map.put(codmed, nommed);
+		}
+		return map;
+	}
+
+	public static Collection<String> getListado(String selected) throws IOException {
+		Collection<String> col = new ArrayList<String>();
+		String archivo = selected.equals("1")?ARCHIVO_DATOS_MEDICO:ARCHIVO_DATOS_PACIENTE;
+		FileReader fr = new FileReader(new File(archivo)); //Con estas clases
+		BufferedReader br = new BufferedReader(fr);							  //puedo leer el archivo	
+		String line; //Aca voy a leer cada linea del archivo
+		String nom;
+
+		while ((line = br.readLine()) != null) { //Leo hasta el final del archivo
+			int index = line.indexOf(":");//Me paro en ":"
+			int index2;
+			if(selected.equalsIgnoreCase("2")){
+				index2 = line.length();
+			}else{
+				index2 = line.indexOf("|");
+			}
+			nom = line.substring(index+1,index2);//Obtengo el nombre
+			col.add(nom);
+		}
+		return col;
+	}
+	
+	
 
 }
