@@ -106,7 +106,6 @@ public class EnfermedadesMedicoView extends JFrame{
 		label.setBounds(6, 17, 90 + label.getText().length(), 16); //setea dimensiones
 		getContentPane().add(label); //agrega label
 		
-		comboMedicos = new JComboBox<ComboItem>();
 		try {
 			comboMedicos = ComboWrapper.getCombo(controlpac.getTodosLosMedicos());
 		} catch (IOException e1) {

@@ -184,6 +184,23 @@ public class controlpac {
 		}
 		return map;
 	}
+	
+
+	public static Map<String, String> getTodosLosPacientes() throws IOException {
+		Map<String,String> map = new HashMap<String,String>();
+		FileReader fr = new FileReader(new File(ARCHIVO_DATOS_PACIENTE)); //Con estas clases
+		BufferedReader br = new BufferedReader(fr);							  //puedo leer el archivo	
+		String line; //Aca voy a leer cada linea del archivo
+		String codPac,nomPac;
+
+		while ((line = br.readLine()) != null) { //Leo hasta el final del archivo
+			int index = line.indexOf(":");//Me paro en ":"
+			codPac = line.substring(0, index); //Obtengo el codigo del paciente
+			nomPac = line.substring(index+1,line.length());//Obtengo el nombre del paciente
+			map.put(codPac, nomPac);
+		}
+		return map;
+	}
 
 	public static Collection<String> getListado(String selected) throws IOException {
 		Collection<String> col = new ArrayList<String>();
