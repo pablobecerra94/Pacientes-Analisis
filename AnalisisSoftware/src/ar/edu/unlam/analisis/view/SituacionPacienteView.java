@@ -10,7 +10,9 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 
 import ar.edu.unlam.analisis.combo.ComboItem;
 import ar.edu.unlam.analisis.login.UserProvider;
@@ -24,6 +26,8 @@ public class SituacionPacienteView extends JFrame{
 	private JTextArea textAreaDiagnostico;
 	private JComboBox<ComboItem> comboPacientes;
 	JComboBox<ComboItem> comboMedicos;
+	JScrollPane scroll;
+	
 	public SituacionPacienteView() {
 		setSize(new Dimension(500, 500));//setea la dimension de la ventana
 		setLocationRelativeTo(null);//setea que no este relativa a nada la pantalla
@@ -41,6 +45,11 @@ public class SituacionPacienteView extends JFrame{
 		
 		textAreaDiagnostico = new JTextArea();//crea un textarea
 		textAreaDiagnostico.setBounds(142, 147, 203, 72);//con esas medidas
+		 scroll = new JScrollPane(textAreaDiagnostico); //agregado de scroll
+	    scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS); //agregado de scroll
+	    scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS); //agregado de scroll
+	    scroll.setVisible(true); //agregado de scroll
+	    scroll.setBounds(142, 147, 203, 72); //agregado de scroll
 		
 		JButton btnLimpiar = new JButton("Limpiar");//crea el boton
 		btnLimpiar.setToolTipText("Presione este botón para vaciar los campos");//agrega el tooltip text
@@ -104,11 +113,11 @@ public class SituacionPacienteView extends JFrame{
 		getContentPane().add(lblCodigoPaciente);//agrega el label a la ventana
 		getContentPane().add(lblCodigoMedico);//agrega el label a la ventana
 		getContentPane().add(lblDiagnostico);
-		getContentPane().add(textAreaDiagnostico);//agrega el textarea a la ventana
+		getContentPane().add(scroll); //agrega el textarea a la ventana
 		getContentPane().add(btnLimpiar);//agrega el boton a la ventana
 		getContentPane().add(btnRegistrar);//agrega el boton a la ventana
 		getContentPane().add(btnVolver);//agrega el boton a la ventana
-		
+	
 		JLabel label = new JLabel("Usuario: "+UserProvider.getUsuarioLogueado());//crea un label
 		label.setFont(new Font("Lucida Grande", Font.PLAIN, 10));//setea la fuente del label
 		label.setBounds(6, 17, 90 + label.getText().length(), 16);//setea las medidas del label
