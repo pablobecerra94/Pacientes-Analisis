@@ -100,7 +100,7 @@ public class SigninView extends JFrame{
 							
 						}
 					} catch (Exception e1) {
-						HandleResponseUtil.showMessageError(e1.getMessage());
+						HandleResponseUtil.showMessageError("Se ha producido un error, ejecute el programa como administrador");
 					}
 				}else{
 					HandleResponseUtil.showMessageError(errors.toString());
